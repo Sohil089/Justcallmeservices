@@ -1,85 +1,471 @@
-<!DOCTYPE html>
-<html lang="hi">
+<!doctype html>
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Just Call Me Services — Demo</title>
+
 <style>
   :root{
-    --bg:#000;            /* black background as requested */
-    --card:#07101a;
-    --muted:#b6c6d6;
-    --gold:#d4af37;
-    --neon:#00e5ff;       /* neon blue */
+    --bg:#000;             /* black background */
+    --glass-bg: rgba(255,255,255,0.04);
+    --card-bg: rgba(255,255,255,0.02);
+    --neon: #00eaff;       /* neon blue */
+    --gold: #d4af37;
+    --muted: #c9d1d9;
+    --glass-border: rgba(255,255,255,0.08);
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:Inter, system-ui, Arial, sans-serif;background:var(--bg);color:#e6eef6}
-  a{color:inherit}
+  body{
+    margin:0;
+    font-family: Inter, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color: #e9f2fb;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+  }
 
-  /* top */
-  .topbar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.03)}
-  .logo{height:44px;width:44px;border-radius:8px;object-fit:cover;border:1px solid rgba(255,255,255,0.06);background:transparent}
-  .site-title{font-weight:700;color:var(--gold);font-size:16px}
+  /* ---------- Topbar / Hero ---------- */
+  .topbar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 18px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  }
+  .logo {
+    width:56px; height:56px; border-radius:10px; object-fit:cover;
+    border:1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
+  }
+  .brand {
+    display:flex; flex-direction:column;
+  }
+  .brand .title { color:var(--gold); font-weight:800; font-size:16px; }
+  .brand .sub { font-size:12px; color:var(--muted); }
+
   .spacer{flex:1}
-  .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer}
-  .btn.gold{background:var(--gold);color:#07101a;border:none;font-weight:700}
 
   /* hero */
-  .hero{padding:36px 18px;text-align:center}
-  .hero h1{margin:0;font-size:34px;color:var(--gold);letter-spacing:0.6px}
-  .hero p{margin-top:8px;color:var(--muted);font-size:15px}
-  .hero .cta{margin-top:14px;display:flex;gap:10px;justify-content:center}
+  .hero{
+    text-align:center; padding:44px 18px 28px;
+    background: linear-gradient(180deg,#02040a 0%, #000 60%);
+  }
+  .hero h1{ margin:0; color:var(--gold); font-size:36px; letter-spacing:0.6px; }
+  .hero p{ color:var(--muted); margin-top:8px; font-size:16px; }
 
-  .container{max-width:1100px;margin:20px auto;padding:0 16px}
-  .section-title{color:var(--gold);font-weight:700;font-size:20px;margin:8px 0 18px 0;text-align:center}
+  .hero-cta{ margin-top:16px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    padding:10px 14px; border-radius:8px; border:0; cursor:pointer; font-weight:700;
+    background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.06);
+  }
+  .btn.primary{ background:var(--gold); color:#07101a; border:none; }
+  .btn.ghost{ background:transparent; color:var(--gold); border:1px solid rgba(212,175,55,0.18); }
 
-  /* grid */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-  .card{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);transition:transform .18s,box-shadow .18s;cursor:pointer}
-  .card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,0.6);border-color:var(--gold)}
-  .card h3{margin:0;color:var(--gold);font-size:18px}
-  .card p{margin:8px 0 0 0;color:var(--muted);font-size:14px}
+  /* ---------- layout container ---------- */
+  .container{ max-width:1100px; margin:26px auto; padding:0 16px; }
 
-  /* full-page detail view (hash navigation) */
-  .page{display:none;min-height:70vh;padding:24px}
-  .page.active{display:block}
-  .back-btn{display:inline-block;margin-bottom:12px;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);cursor:pointer}
-  .detail-hero{display:flex;gap:18px;align-items:center}
-  .detail-hero img{max-width:300px;width:40%;border-radius:10px;object-fit:cover;border:1px solid rgba(255,255,255,0.04)}
-  .detail-hero .info{flex:1}
-  .detail-hero .info h2{margin:0;color:var(--gold)}
-  .detail-hero .info p{margin:8px 0;color:#dbe6ef}
+  h2.section { color: var(--gold); font-size:20px; margin:0 0 14px; text-align:center; font-weight:800; }
 
-  /* neon blue text */
-  .neon{color:var(--neon);text-shadow:0 0 8px rgba(0,229,255,0.5),0 0 18px rgba(0,229,255,0.18);font-weight:700}
+  /* ---------- Liquid glass cards (grid) ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+  }
 
-  /* solar companies table/cards */
-  .company-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:18px}
-  .company{
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  .card{
+    border-radius:12px;
+    padding:16px;
+    min-height:120px;
+    /* glass */
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s;
+    cursor:pointer;
+  }
+  .card:hover{ transform: translateY(-6px); border-color: rgba(0,234,255,0.25); box-shadow: 0 14px 40px rgba(0,234,255,0.06); }
+  .card h3{ margin:0; color:var(--neon); font-size:18px; }
+  .card p{ margin:8px 0 0; color:var(--muted); font-size:14px; }
+
+  /* ---------- Full page detail (route) ---------- */
+  .page{ display:none; padding:20px; max-width:1000px; margin:0 auto 40px; }
+  .page.active{ display:block; }
+
+  .back {
+    display:inline-block; padding:8px 10px; border-radius:8px;
+    border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; cursor:pointer;
+    margin-bottom:16px;
+  }
+
+  .detail-hero{
+    display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;
+  }
+  .detail-img{
+    width:360px; max-width:100%; height:210px; border-radius:10px; object-fit:cover;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
     border:1px solid rgba(255,255,255,0.04);
-    padding:12px;border-radius:10px;
   }
-  .company h4{margin:0;color:var(--neon)}
-  .company .meta{color:#dbe6ef;margin-top:6px;font-size:14px}
-  .company .price{margin-top:10px;font-weight:800;color:var(--neon);font-size:18px}
+  .detail-info h2{ color: var(--neon); margin:0 0 8px; font-size:24px; }
+  .detail-info p{ color: #dbe6ef; margin:0 0 10px; }
 
-  /* image uploader preview */
-  .uploader{margin-top:12px;display:flex;gap:8px;align-items:center}
-  input[type=file]{display:none}
-  .file-btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);cursor:pointer;background:transparent;color:#fff}
+  /* neon text helper */
+  .neon { color:var(--neon); text-shadow: 0 0 8px rgba(0,234,255,0.35), 0 0 18px rgba(0,234,255,0.12); font-weight:800; }
 
-  /* responsive */
-  @media(max-width:720px){
-    .detail-hero{flex-direction:column}
-    .detail-hero img{width:100%;max-width:none}
+  /* ---------- solar companies section ---------- */
+  .companies { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); margin-top:18px; }
+  .company-card{
+    padding:12px; border-radius:10px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+    border:1px solid rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+  }
+  .company-card h4{ margin:0; color:var(--neon); font-size:18px; }
+  .company-card .meta{ color:#dbe6ef; margin-top:8px; font-size:14px; }
+  .company-card .price{ margin-top:10px; font-weight:900; color:var(--gold); font-size:18px; }
+  .company-card .actions{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+
+  /* ---------- modal enquiry form ---------- */
+  .modal-bg{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999; background:rgba(0,0,0,0.6); }
+  .modal{ width:100%; max-width:520px; border-radius:12px; padding:18px; background:linear-gradient(180deg, rgba(10,16,20,0.95), rgba(6,10,14,0.95)); border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 80px rgba(0,0,0,0.7); }
+  .modal h3{ margin:0 0 8px; color:var(--neon); }
+  .field{ margin-top:10px; display:flex; flex-direction:column; gap:6px; }
+  .field input, .field textarea, .field select{
+    padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); color:#e9f2fb;
+  }
+  .modal .row{ display:flex; gap:8px; }
+  .modal .row .field{ flex:1; }
+  .modal .actions{ display:flex; gap:8px; margin-top:12px; justify-content:flex-end; }
+  .small-btn{ padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; cursor:pointer; }
+  .small-btn.primary{ background:var(--gold); color:#07101a; border:none; }
+
+  @media(max-width:760px){
+    .detail-hero{ flex-direction:column; }
+    .detail-img{ height:180px; width:100%; }
+    .companies{ grid-template-columns: 1fr; }
   }
 
-  .footer{margin:30px 0;text-align:center;color:#8ea0b6;font-size:13px}
+  footer{ text-align:center; color:#9fb1c7; margin:30px 0; font-size:13px; }
+
 </style>
 </head>
 <body>
 
-<!-- TOP -->
-<div class="topbar">
-  <img id="logo" class="
+<!-- top -->
+<header class="topbar">
+  <img src="/mnt/data/A_website_homepage_for_Just_Call_Me_Services,_a_bu.png" alt="logo" class="logo" id="topLogo">
+  <div class="brand">
+    <div class="title">JUST CALL ME SERVICES</div>
+    <div class="sub">Multi-business solutions</div>
+  </div>
+  <div class="spacer"></div>
+  <button class="btn ghost" onclick="goHome()">Home</button>
+  <button class="btn primary" onclick="window.location.href='tel:+91XXXXXXXXXX'">Call Now</button>
+</header>
+
+<!-- hero -->
+<section class="hero">
+  <h1>JUST CALL ME SERVICES</h1>
+  <p>Government Contracts • Labour Supply • Transport • Real Estate • Solar Projects</p>
+  <div class="hero-cta">
+    <button class="btn primary" onclick="window.location.href='tel:+91XXXXXXXXXX'">📞 Call Now</button>
+    <button class="btn" onclick="document.getElementById('divisions').scrollIntoView({behavior:'smooth'})">View Divisions</button>
+  </div>
+</section>
+
+<!-- content -->
+<main class="container">
+
+  <!-- divisions -->
+  <section id="divisions">
+    <h2 class="section">Our Divisions</h2>
+    <div class="grid" id="divGrid">
+      <div class="card" data-id="govt" onclick="openPage('govt')">
+        <h3>Government Contracts</h3>
+        <p>Tender support, RFP documentation and bid management.</p>
+      </div>
+
+      <div class="card" data-id="labour" onclick="openPage('labour')">
+        <h3>Labour Supply</h3>
+        <p>Skilled & unskilled workers on demand. Payroll & compliance.</p>
+      </div>
+
+      <div class="card" data-id="transport" onclick="openPage('transport')">
+        <h3>Transport</h3>
+        <p>Fleet supply, logistics, and tracking for deliveries.</p>
+      </div>
+
+      <div class="card" data-id="real" onclick="openPage('real')">
+        <h3>Real Estate</h3>
+        <p>Sales, leasing, due-diligence and property management.</p>
+      </div>
+
+      <div class="card" data-id="solar" onclick="openPage('solar')">
+        <h3>Solar Projects</h3>
+        <p>Design, supply, installation and net-metering services.</p>
+      </div>
+
+      <div class="card" data-id="consult" onclick="openPage('consult')">
+        <h3>Consulting</h3>
+        <p>Project management, vendor selection & execution support.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr style="border:none;height:18px">
+
+  <!-- PAGES: each division is a full page section (show/hide) -->
+
+  <!-- Government -->
+  <section id="govt" class="page" aria-hidden="true">
+    <button class="back" onclick="goHome()">← Back</button>
+    <div class="detail-hero">
+      <img class="detail-img" id="img_govt" src="" alt="Government">
+      <div class="detail-info">
+        <h2 class="neon">Government Contracts</h2>
+        <p>We assist with tender analysis, documentation, bid submission and compliance. Full end-to-end management.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Labour -->
+  <section id="labour" class="page" aria-hidden="true">
+    <button class="back" onclick="goHome()">← Back</button>
+    <div class="detail-hero">
+      <img class="detail-img" id="img_labour" src="" alt="Labour">
+      <div class="detail-info">
+        <h2 class="neon">Labour Supply</h2>
+        <p>Short-term and long-term manpower supply with payroll, EPF/ESI and attendance management options.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transport -->
+  <section id="transport" class="page" aria-hidden="true">
+    <button class="back" onclick="goHome()">← Back</button>
+    <div class="detail-hero">
+      <img class="detail-img" id="img_transport" src="" alt="Transport">
+      <div class="detail-info">
+        <h2 class="neon">Transport</h2>
+        <p>Fleet solutions (mini trucks, pickups, heavy vehicles), route planning and insured deliveries.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real -->
+  <section id="real" class="page" aria-hidden="true">
+    <button class="back" onclick="goHome()">← Back</button>
+    <div class="detail-hero">
+      <img class="detail-img" id="img_real" src="" alt="Real Estate">
+      <div class="detail-info">
+        <h2 class="neon">Real Estate</h2>
+        <p>Property acquisitions, leasing, commercial & residential deals, legal checks and documentation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLAR: detailed -->
+  <section id="solar" class="page" aria-hidden="true">
+    <button class="back" onclick="goHome()">← Back</button>
+    <div class="detail-hero">
+      <img class="detail-img" id="img_solar" src="/mnt/data/A_webpage_screenshot_for_solar_energy_services,_ti.png" alt="Solar">
+      <div class="detail-info">
+        <h2 class="neon">Solar Projects</h2>
+        <p>Site survey → System design → Procurement → Installation → Net-metering & maintenance. Choose a brand below and click Get Enquiry to contact us.</p>
+      </div>
+    </div>
+
+    <div class="companies" id="companiesWrap">
+      <!-- JS will populate company cards -->
+    </div>
+  </section>
+
+  <!-- Consulting -->
+  <section id="consult" class="page" aria-hidden="true">
+    <button class="back" onclick="goHome()">← Back</button>
+    <div class="detail-hero">
+      <img class="detail-img" id="img_consult" src="" alt="Consulting">
+      <div class="detail-info">
+        <h2 class="neon">Consulting</h2>
+        <p>Business planning, operations advisory, vendor selection and project management support for enterprise clients.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Demo — changes are local. To publish, push to GitHub Pages or Netlify.
+</footer>
+
+<!-- ENQUIRY MODAL -->
+<div id="modalBg" class="modal-bg" style="display:none;align-items:center;justify-content:center">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle">Get Enquiry</h3>
+
+    <div class="field">
+      <label>Selected Brand</label>
+      <input id="brandField" readonly>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Your name</label>
+        <input id="inputName" placeholder="Full name">
+      </div>
+      <div class="field">
+        <label>Phone</label>
+        <input id="inputPhone" placeholder="+91...">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input id="inputEmail" placeholder="your@email.com">
+    </div>
+
+    <div class="field">
+      <label>Message / Requirements</label>
+      <textarea id="inputMsg" rows="4" placeholder="Example: I want 3.3 kW package..."></textarea>
+    </div>
+
+    <div class="actions">
+      <button class="small-btn" onclick="closeModal()">Cancel</button>
+      <button class="small-btn primary" onclick="submitEnquiry()">Send Enquiry</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========== Data ========== */
+const companies = [
+  { id:'adani', name:'ADANI', kw:'3.30 kW', price:'₹ 170,000', panels330:10, panels360:9 },
+  { id:'tata', name:'TATA', kw:'3.39 kW', price:'₹ 181,000', panels330:11, panels360:10 },
+  { id:'waaree', name:'WAAREE', kw:'3.24 kW', price:'₹ 166,704', panels330:10, panels360:9 },
+  { id:'aps', name:'APS', kw:'3.20 kW', price:'₹ 160,000', panels330:10, panels360:9 }
+];
+
+/* ========= navigation helpers ========= */
+function goHome(){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('home').classList.add('active');
+  document.querySelectorAll('.page').forEach(p => p.setAttribute('aria-hidden','true'));
+  document.getElementById('home').setAttribute('aria-hidden','false');
+  window.scrollTo({top:0,behavior:'smooth'});
+  history.pushState(null,'', location.pathname);
+}
+
+function openPage(id){
+  // hide home
+  document.getElementById('home').classList.remove('active');
+  // hide pages and show requested
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.add('active');
+  el.setAttribute('aria-hidden','false');
+  history.pushState(null,'', '#'+id);
+  // if solar page, render companies
+  if(id === 'solar') renderCompanies();
+}
+
+/* on back/forward */
+window.addEventListener('popstate', () => {
+  if(location.hash){
+    const id = location.hash.replace('#','');
+    openPage(id);
+  } else { goHome(); }
+});
+
+/* ========== Render companies in solar page ========== */
+function renderCompanies(){
+  const wrap = document.getElementById('companiesWrap');
+  wrap.innerHTML = '';
+  companies.forEach(c=>{
+    const div = document.createElement('div');
+    div.className = 'company-card';
+    div.innerHTML = `
+      <h4>${c.name}</h4>
+      <div class="meta">Package: <strong style="color:#fff">${c.kw}</strong></div>
+      <div class="meta">Panels: ${c.panels330} × 330W • ${c.panels360} × 360W</div>
+      <div class="price">${c.price}</div>
+      <div class="actions">
+        <button class="small-btn" onclick="compare('${c.id}')">Compare</button>
+        <button class="small-btn primary" onclick="openEnquiry('${c.name}')">Get Enquiry</button>
+      </div>
+    `;
+    wrap.appendChild(div);
+  });
+}
+
+/* placeholder compare */
+function compare(id){
+  alert('Added ' + id + ' to compare (demo).');
+}
+
+/* ========== Enquiry modal ========== */
+function openEnquiry(brand){
+  document.getElementById('brandField').value = brand;
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputPhone').value = '';
+  document.getElementById('inputEmail').value = '';
+  document.getElementById('inputMsg').value = '';
+  document.getElementById('modalBg').style.display = 'flex';
+}
+
+function closeModal(){
+  document.getElementById('modalBg').style.display = 'none';
+}
+
+/* Submit: prefer mailto (opens user's mail) and also save locally */
+function submitEnquiry(){
+  const name = document.getElementById('inputName').value.trim();
+  const phone = document.getElementById('inputPhone').value.trim();
+  const email = document.getElementById('inputEmail').value.trim();
+  const msg = document.getElementById('inputMsg').value.trim();
+  const brand = document.getElementById('brandField').value;
+
+  if(!name || !phone){
+    alert('Please enter name and phone.');
+    return;
+  }
+
+  // Save to localStorage (demo)
+  const saves = JSON.parse(localStorage.getItem('jc_enquiries')||'[]');
+  saves.push({brand,name,phone,email,msg,date:new Date().toISOString()});
+  localStorage.setItem('jc_enquiries', JSON.stringify(saves));
+
+  // Compose mailto (if user clicks Send in their mail app)
+  const mailto = 'mailto:your-email@gmail.com'
+    + '?subject=' + encodeURIComponent('Enquiry: ' + brand + ' - ' + name)
+    + '&body=' + encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nBrand: ${brand}\nMessage:\n${msg}`);
+
+  // open mail client
+  window.location.href = mailto;
+
+  // close modal (if mail client not available, user saved locally)
+  closeModal();
+
+  setTimeout(()=> alert('Enquiry saved locally and mail client opened (if available).'), 500);
+}
+
+/* ========== small helpers ========== */
+function init(){
+  // show home initially
+  goHome();
+  // if page loaded with hash
+  if(location.hash){
+    const id = location.hash.replace('#','');
+    if(document.getElementById(id)) openPage(id);
+  }
+}
+init();
+
+</script>
+</body>
+  </html>
