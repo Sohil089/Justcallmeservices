@@ -3,504 +3,421 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Just Call Me Services — Demo</title>
-
+<title>JUST call me services — Demo</title>
 <style>
   :root{
-    --bg:#000;             /* black background */
-    --glass-bg: rgba(255,255,255,0.04);
-    --card-bg: rgba(255,255,255,0.02);
-    --neon: #00eaff;       /* neon blue */
+    --bg: #000;
+    --neon: #00eaff; /* neon blue text */
+    --glass-bg: rgba(255,255,255,0.02);
+    --glass-border: rgba(255,255,255,0.06);
     --gold: #d4af37;
-    --muted: #c9d1d9;
-    --glass-border: rgba(255,255,255,0.08);
   }
   *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family: Inter, Roboto, Arial, sans-serif;
-    background:var(--bg);
-    color: #e9f2fb;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    line-height:1.45;
-  }
+  body{margin:0;font-family:Inter, Roboto, Arial, sans-serif;background:var(--bg);color:var(--neon);-webkit-font-smoothing:antialiased}
+  a{color:var(--neon)}
 
-  /* ---------- Topbar / Hero ---------- */
-  .topbar{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:12px 18px;
-    border-bottom:1px solid rgba(255,255,255,0.03);
-    background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-  }
-  .logo {
-    width:56px; height:56px; border-radius:10px; object-fit:cover;
-    border:1px solid rgba(255,255,255,0.06);
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
-  }
-  .brand {
-    display:flex; flex-direction:column;
-  }
-  .brand .title { color:var(--gold); font-weight:800; font-size:16px; }
-  .brand .sub { font-size:12px; color:var(--muted); }
+  /* topbar */
+  .topbar{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .logo{width:56px;height:56px;border-radius:10px;object-fit:cover;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2))}
+  .brand{display:flex;flex-direction:column}
+  .brand .title{color:var(--neon);font-weight:800;font-size:18px}
+  .brand .sub{color:#9fb1c7;font-size:12px}
 
   .spacer{flex:1}
 
+  .btn{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--neon);cursor:pointer}
+  .btn.primary{background:var(--neon);color:#001217;border:none;font-weight:700}
+
   /* hero */
-  .hero{
-    text-align:center; padding:44px 18px 28px;
-    background: linear-gradient(180deg,#02040a 0%, #000 60%);
-  }
-  .hero h1{ margin:0; color:var(--gold); font-size:36px; letter-spacing:0.6px; }
-  .hero p{ color:var(--muted); margin-top:8px; font-size:16px; }
+  .hero{padding:36px 16px;text-align:center}
+  .hero h1{margin:0;font-size:34px;color:var(--neon)}
+  .hero p{margin-top:8px;color:#9fb1c7}
+  .hero .cta{margin-top:12px;display:flex;gap:10px;justify-content:center}
 
-  .hero-cta{ margin-top:16px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
-  .btn{
-    padding:10px 14px; border-radius:8px; border:0; cursor:pointer; font-weight:700;
-    background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.06);
-  }
-  .btn.primary{ background:var(--gold); color:#07101a; border:none; }
-  .btn.ghost{ background:transparent; color:var(--gold); border:1px solid rgba(212,175,55,0.18); }
+  .container{max-width:1100px;margin:18px auto;padding:0 16px}
 
-  /* ---------- layout container ---------- */
-  .container{ max-width:1100px; margin:26px auto; padding:0 16px; }
+  h2.section{color:var(--neon);text-align:center;margin-bottom:12px;font-weight:800}
 
-  h2.section { color: var(--gold); font-size:20px; margin:0 0 14px; text-align:center; font-weight:800; }
-
-  /* ---------- Liquid glass cards (grid) ---------- */
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:16px;
-  }
-
+  /* liquid glass card */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
   .card{
-    border-radius:12px;
-    padding:16px;
-    min-height:120px;
-    /* glass */
-    background: var(--card-bg);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-    backdrop-filter: blur(8px) saturate(120%);
-    -webkit-backdrop-filter: blur(8px) saturate(120%);
-    transition: transform .18s ease, box-shadow .18s ease, border-color .18s;
-    cursor:pointer;
+    padding:16px;border-radius:12px;background:var(--glass-bg);
+    border:1px solid var(--glass-border);backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);position:relative;overflow:hidden;
+    transition:transform .18s ease,box-shadow .18s ease,border-color .18s;cursor:pointer;
   }
-  .card:hover{ transform: translateY(-6px); border-color: rgba(0,234,255,0.25); box-shadow: 0 14px 40px rgba(0,234,255,0.06); }
-  .card h3{ margin:0; color:var(--neon); font-size:18px; }
-  .card p{ margin:8px 0 0; color:var(--muted); font-size:14px; }
+  .card::before{content:"";position:absolute;left:-80%;top:-80%;width:260%;height:260%;background:linear-gradient(120deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.0) 25%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.0) 100%);transform:rotate(25deg);transition:transform .9s;}
+  .card:hover::before{transform:translateX(8%) rotate(25deg)}
+  .card:hover{transform:translateY(-6px);box-shadow:0 14px 40px rgba(0,234,255,0.06);border-color:rgba(0,234,255,0.12)}
+  .card h3{margin:0;color:var(--neon);font-size:18px}
+  .card p{margin-top:8px;color:#b9d9e6;font-size:14px}
 
-  /* ---------- Full page detail (route) ---------- */
-  .page{ display:none; padding:20px; max-width:1000px; margin:0 auto 40px; }
-  .page.active{ display:block; }
+  /* pages */
+  .page{display:none;padding:18px;max-width:1100px;margin:0 auto 40px}
+  .page.active{display:block}
+  .back{display:inline-block;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--neon);cursor:pointer;margin-bottom:12px}
 
-  .back {
-    display:inline-block; padding:8px 10px; border-radius:8px;
-    border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; cursor:pointer;
-    margin-bottom:16px;
+  .detail-hero{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+  .detail-img{width:360px;max-width:100%;height:220px;border-radius:12px;object-fit:cover;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12))}
+  .detail-info h2{margin:0;color:var(--neon);font-size:24px}
+  .detail-info p{color:#cfe7f5;margin-top:8px}
+
+  /* small uploader */
+  .uploader{margin-top:10px}
+  input[type=file]{display:none}
+  .file-btn{display:inline-block;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);cursor:pointer;background:transparent;color:var(--neon)}
+
+  /* solar company cards */
+  .companies{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px}
+  .company{
+    padding:12px;border-radius:10px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(8px);position:relative;overflow:hidden;
   }
+  .company h4{margin:0;color:var(--neon);font-weight:800}
+  .company .meta{color:#dbe6ef;margin-top:6px;font-size:14px}
+  .company .price{margin-top:10px;color:var(--neon);font-weight:800;font-size:16px}
+  .company .actions{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
 
-  .detail-hero{
-    display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;
-  }
-  .detail-img{
-    width:360px; max-width:100%; height:210px; border-radius:10px; object-fit:cover;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
-    border:1px solid rgba(255,255,255,0.04);
-  }
-  .detail-info h2{ color: var(--neon); margin:0 0 8px; font-size:24px; }
-  .detail-info p{ color: #dbe6ef; margin:0 0 10px; }
+  /* company detail panel (modal-like inside page) */
+  .company-panel{margin-top:14px;padding:12px;border-radius:10px;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.04)}
+  .package{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);margin-top:8px}
+  .package .pkg-title{color:var(--neon);font-weight:800}
+  .package .pkg-price{color:var(--neon);font-weight:900;margin-top:6px}
 
-  /* neon text helper */
-  .neon { color:var(--neon); text-shadow: 0 0 8px rgba(0,234,255,0.35), 0 0 18px rgba(0,234,255,0.12); font-weight:800; }
+  /* enquiry area */
+  .enquiry-row{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+  .wh-btn{background:linear-gradient(180deg,#00eaff,#00b8ff);color:#001217;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+  .ig-btn{background:linear-gradient(180deg,#8a2be2,#a84fff);color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+  .form-btn{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--neon);cursor:pointer}
 
-  /* ---------- solar companies section ---------- */
-  .companies { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); margin-top:18px; }
-  .company-card{
-    padding:12px; border-radius:10px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
-    border:1px solid rgba(255,255,255,0.04);
-    backdrop-filter: blur(6px);
-  }
-  .company-card h4{ margin:0; color:var(--neon); font-size:18px; }
-  .company-card .meta{ color:#dbe6ef; margin-top:8px; font-size:14px; }
-  .company-card .price{ margin-top:10px; font-weight:900; color:var(--gold); font-size:18px; }
-  .company-card .actions{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+  /* enquiry modal */
+  .modal-bg{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:9999}
+  .modal{width:100%;max-width:520px;background:#071026;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.06)}
+  .modal h3{margin:0;color:var(--neon)}
+  .field{margin-top:10px;display:flex;flex-direction:column}
+  .field input,.field textarea{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:var(--neon)}
+  .modal .actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
 
-  /* ---------- modal enquiry form ---------- */
-  .modal-bg{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999; background:rgba(0,0,0,0.6); }
-  .modal{ width:100%; max-width:520px; border-radius:12px; padding:18px; background:linear-gradient(180deg, rgba(10,16,20,0.95), rgba(6,10,14,0.95)); border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 80px rgba(0,0,0,0.7); }
-  .modal h3{ margin:0 0 8px; color:var(--neon); }
-  .field{ margin-top:10px; display:flex; flex-direction:column; gap:6px; }
-  .field input, .field textarea, .field select{
-    padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); color:#e9f2fb;
-  }
-  .modal .row{ display:flex; gap:8px; }
-  .modal .row .field{ flex:1; }
-  .modal .actions{ display:flex; gap:8px; margin-top:12px; justify-content:flex-end; }
-  .small-btn{ padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; cursor:pointer; }
-  .small-btn.primary{ background:var(--gold); color:#07101a; border:none; }
+  /* ripple */
+  .ripple{position:absolute;border-radius:50%;transform:translate(-50%,-50%) scale(0);background:radial-gradient(circle, rgba(0,234,255,0.25) 0%, rgba(0,234,255,0.06) 40%, transparent 60%);pointer-events:none;animation:ripple-anim .7s ease-out forwards}
+  @keyframes ripple-anim{to{transform:translate(-50%,-50%) scale(3);opacity:0}}
+
+  footer{margin:30px 0;text-align:center;color:#6e98ad;font-size:13px}
 
   @media(max-width:760px){
-    .detail-hero{ flex-direction:column; }
-    .detail-img{ height:180px; width:100%; }
-    .companies{ grid-template-columns: 1fr; }
+    .detail-hero{flex-direction:column}
+    .detail-img{height:180px}
+    .companies{grid-template-columns:1fr}
   }
-
-  footer{ text-align:center; color:#9fb1c7; margin:30px 0; font-size:13px; }
-
 </style>
 </head>
 <body>
 
-<!-- top -->
+<!-- TOPBAR -->
 <header class="topbar">
-  <img src="/mnt/data/A_website_homepage_for_Just_Call_Me_Services,_a_bu.png" alt="logo" class="logo" id="topLogo">
+  <img id="topLogo" src="" alt="logo" class="logo" data-logo>
   <div class="brand">
-    <div class="title">JUST CALL ME SERVICES</div>
-    <div class="sub">Multi-business solutions</div>
+    <div class="title" id="siteTitle">JUST call me services</div>
+    <div class="sub" id="siteSub">your project, our commitment</div>
   </div>
   <div class="spacer"></div>
-  <button class="btn ghost" onclick="goHome()">Home</button>
-  <button class="btn primary" onclick="window.location.href='tel:+91XXXXXXXXXX'">Call Now</button>
+  <a id="callLink" data-call href="tel:+919000000000" class="btn">Call</a>
+  <button class="btn" onclick="openSettings()">Settings</button>
 </header>
 
-<!-- hero -->
+<!-- HERO -->
 <section class="hero">
-  <h1>JUST CALL ME SERVICES</h1>
-  <p>Government Contracts • Labour Supply • Transport • Real Estate • Solar Projects</p>
-  <div class="hero-cta">
-    <button class="btn primary" onclick="window.location.href='tel:+91XXXXXXXXXX'">📞 Call Now</button>
-    <button class="btn" onclick="document.getElementById('divisions').scrollIntoView({behavior:'smooth'})">View Divisions</button>
+  <h1 id="heroTitle">JUST call me services</h1>
+  <p id="heroSub">your project, our commitment</p>
+  <div class="cta">
+    <button class="btn primary" onclick="document.getElementById('divisions').scrollIntoView({behavior:'smooth'})">View Divisions</button>
   </div>
 </section>
 
-<!-- content -->
 <main class="container">
 
-  <!-- divisions -->
-  <section id="divisions">
+  <!-- HOME / DIVISIONS -->
+  <section id="home" class="page active" aria-hidden="false">
     <h2 class="section">Our Divisions</h2>
-    <div class="grid" id="divGrid">
-      <div class="card" data-id="govt" onclick="openPage('govt')">
-        <h3>Government Contracts</h3>
-        <p>Tender support, RFP documentation and bid management.</p>
-      </div>
-
-      <div class="card" data-id="labour" onclick="openPage('labour')">
-        <h3>Labour Supply</h3>
-        <p>Skilled & unskilled workers on demand. Payroll & compliance.</p>
-      </div>
-
-      <div class="card" data-id="transport" onclick="openPage('transport')">
-        <h3>Transport</h3>
-        <p>Fleet supply, logistics, and tracking for deliveries.</p>
-      </div>
-
-      <div class="card" data-id="real" onclick="openPage('real')">
-        <h3>Real Estate</h3>
-        <p>Sales, leasing, due-diligence and property management.</p>
-      </div>
-
-      <div class="card" data-id="solar" onclick="openPage('solar')">
-        <h3>Solar Projects</h3>
-        <p>Design, supply, installation and net-metering services.</p>
-      </div>
-
-      <div class="card" data-id="consult" onclick="openPage('consult')">
-        <h3>Consulting</h3>
-        <p>Project management, vendor selection & execution support.</p>
-      </div>
+    <div id="divisions" class="grid">
+      <div class="card" data-id="govt"><h3>Government Contracts</h3><p>Tender support • RFP documentation • Bid management</p></div>
+      <div class="card" data-id="labour"><h3>Labour Supply</h3><p>Skilled & unskilled • Payroll & compliance</p></div>
+      <div class="card" data-id="transport"><h3>Transport</h3><p>Fleet supply • Logistics • Tracking</p></div>
+      <div class="card" data-id="real"><h3>Real Estate</h3><p>Sales • Leasing • Due diligence</p></div>
+      <div class="card" data-id="solar"><h3>Solar Projects</h3><p>Design • Supply • Installation • Net metering</p></div>
+      <div class="card" data-id="consult"><h3>Consulting</h3><p>Project management • Vendor selection</p></div>
     </div>
+    <footer style="margin-top:18px">Click any division to open its full page</footer>
   </section>
 
-  <hr style="border:none;height:18px">
-
-  <!-- PAGES: each division is a full page section (show/hide) -->
-
-  <!-- Government -->
+  <!-- GOVERNMENT PAGE -->
   <section id="govt" class="page" aria-hidden="true">
-    <button class="back" onclick="goHome()">← Back</button>
+    <button class="back" data-back>← Back</button>
     <div class="detail-hero">
-      <img class="detail-img" id="img_govt" src="" alt="Government">
+      <img id="img_govt" class="detail-img" src="" alt="Government image">
       <div class="detail-info">
         <h2 class="neon">Government Contracts</h2>
-        <p>We assist with tender analysis, documentation, bid submission and compliance. Full end-to-end management.</p>
+        <p id="govtDesc">We provide end-to-end tender support including RFP analysis, documentation, bid submissions and compliance.</p>
+        <div class="uploader"><label class="file-btn">Upload image<input type="file" accept="image/*" data-upload="govt"></label></div>
       </div>
     </div>
   </section>
 
-  <!-- Labour -->
+  <!-- LABOUR PAGE -->
   <section id="labour" class="page" aria-hidden="true">
-    <button class="back" onclick="goHome()">← Back</button>
+    <button class="back" data-back>← Back</button>
     <div class="detail-hero">
-      <img class="detail-img" id="img_labour" src="" alt="Labour">
+      <img id="img_labour" class="detail-img" src="" alt="Labour image">
       <div class="detail-info">
         <h2 class="neon">Labour Supply</h2>
-        <p>Short-term and long-term manpower supply with payroll, EPF/ESI and attendance management options.</p>
+        <p id="labourDesc">Short & long-term manpower supply with payroll, EPF/ESI and attendance management.</p>
+        <div class="uploader"><label class="file-btn">Upload image<input type="file" accept="image/*" data-upload="labour"></label></div>
       </div>
     </div>
   </section>
 
-  <!-- Transport -->
+  <!-- TRANSPORT PAGE -->
   <section id="transport" class="page" aria-hidden="true">
-    <button class="back" onclick="goHome()">← Back</button>
+    <button class="back" data-back>← Back</button>
     <div class="detail-hero">
-      <img class="detail-img" id="img_transport" src="" alt="Transport">
+      <img id="img_transport" class="detail-img" src="" alt="Transport image">
       <div class="detail-info">
         <h2 class="neon">Transport</h2>
-        <p>Fleet solutions (mini trucks, pickups, heavy vehicles), route planning and insured deliveries.</p>
+        <p id="transportDesc">Fleet solutions, insured deliveries, route planning and tracking.</p>
+        <div class="uploader"><label class="file-btn">Upload image<input type="file" accept="image/*" data-upload="transport"></label></div>
       </div>
     </div>
   </section>
 
-  <!-- Real -->
+  <!-- REAL ESTATE PAGE -->
   <section id="real" class="page" aria-hidden="true">
-    <button class="back" onclick="goHome()">← Back</button>
+    <button class="back" data-back>← Back</button>
     <div class="detail-hero">
-      <img class="detail-img" id="img_real" src="" alt="Real Estate">
+      <img id="img_real" class="detail-img" src="" alt="Real estate image">
       <div class="detail-info">
         <h2 class="neon">Real Estate</h2>
-        <p>Property acquisitions, leasing, commercial & residential deals, legal checks and documentation.</p>
+        <p id="realDesc">Property acquisition, leasing, commercial & residential deals, legal checks and documentation.</p>
+        <div class="uploader"><label class="file-btn">Upload image<input type="file" accept="image/*" data-upload="real"></label></div>
       </div>
     </div>
   </section>
 
-  <!-- SOLAR: detailed -->
+  <!-- SOLAR PAGE (special) -->
   <section id="solar" class="page" aria-hidden="true">
-    <button class="back" onclick="goHome()">← Back</button>
+    <button class="back" data-back>← Back</button>
     <div class="detail-hero">
-      <img class="detail-img" id="img_solar" src="/mnt/data/A_webpage_screenshot_for_solar_energy_services,_ti.png" alt="Solar">
+      <img id="img_solar" class="detail-img" src="" alt="Solar">
       <div class="detail-info">
         <h2 class="neon">Solar Projects</h2>
-        <p>Site survey → System design → Procurement → Installation → Net-metering & maintenance. Choose a brand below and click Get Enquiry to contact us.</p>
+        <p id="solarDesc">Site survey → Design → Procurement → Installation → Net-metering. Select a brand to view packages.</p>
+        <div class="uploader"><label class="file-btn">Upload image<input type="file" accept="image/*" data-upload="solar"></label></div>
       </div>
     </div>
 
-    <div class="companies" id="companiesWrap">
-      <!-- JS will populate company cards -->
+    <!-- Companies (liquid glass boxes) -->
+    <div id="companies" class="companies" aria-live="polite"></div>
+
+    <!-- Company detail area (appears when a company is clicked) -->
+    <div id="companyDetail" style="display:none;margin-top:12px" class="company-panel">
+      <div id="companyTitle" class="neon" style="font-size:18px"></div>
+      <div id="companyInfo" style="color:#dbe6ef;margin-top:8px"></div>
+
+      <div id="packageList" style="margin-top:12px"></div>
+
+      <div id="selectedRow" style="display:none" class="enquiry-row">
+        <div style="align-self:center;color:#bfefff">Selected: <strong id="selectedPkg" style="margin-left:6px;color:var(--neon)"></strong></div>
+        <button class="wh-btn" id="whBtn">WhatsApp</button>
+        <button class="ig-btn" id="igBtn">Instagram</button>
+        <button class="form-btn" id="openFormBtn">Get Enquiry Form</button>
+      </div>
     </div>
   </section>
 
-  <!-- Consulting -->
+  <!-- CONSULTING PAGE -->
   <section id="consult" class="page" aria-hidden="true">
-    <button class="back" onclick="goHome()">← Back</button>
+    <button class="back" data-back>← Back</button>
     <div class="detail-hero">
-      <img class="detail-img" id="img_consult" src="" alt="Consulting">
+      <img id="img_consult" class="detail-img" src="" alt="Consulting image">
       <div class="detail-info">
         <h2 class="neon">Consulting</h2>
-        <p>Business planning, operations advisory, vendor selection and project management support for enterprise clients.</p>
+        <p id="consultDesc">Business planning, operations advisory, vendor selection and project management.</p>
+        <div class="uploader"><label class="file-btn">Upload image<input type="file" accept="image/*" data-upload="consult"></label></div>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer>
-  Demo — changes are local. To publish, push to GitHub Pages or Netlify.
-</footer>
+<footer>Demo — changes are local to your browser. To publish, push to GitHub Pages or Netlify.</footer>
 
-<!-- ENQUIRY MODAL -->
+<!-- Enquiry Modal -->
 <div id="modalBg" class="modal-bg" style="display:none;align-items:center;justify-content:center">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" role="dialog" aria-modal="true">
     <h3 id="modalTitle">Get Enquiry</h3>
-
-    <div class="field">
-      <label>Selected Brand</label>
-      <input id="brandField" readonly>
+    <div class="field"><label>Brand / Package</label><input id="modalBrand" readonly></div>
+    <div class="row" style="display:flex;gap:8px;margin-top:8px">
+      <div style="flex:1" class="field"><label>Your name</label><input id="eName"></div>
+      <div style="flex:1" class="field"><label>Phone</label><input id="ePhone"></div>
     </div>
-
-    <div class="row">
-      <div class="field">
-        <label>Your name</label>
-        <input id="inputName" placeholder="Full name">
-      </div>
-      <div class="field">
-        <label>Phone</label>
-        <input id="inputPhone" placeholder="+91...">
-      </div>
-    </div>
-
-    <div class="field">
-      <label>Email</label>
-      <input id="inputEmail" placeholder="your@email.com">
-    </div>
-
-    <div class="field">
-      <label>Message / Requirements</label>
-      <textarea id="inputMsg" rows="4" placeholder="Example: I want 3.3 kW package..."></textarea>
-    </div>
-
+    <div class="field"><label>Email</label><input id="eEmail"></div>
+    <div class="field"><label>Message</label><textarea id="eMsg" rows="4"></textarea></div>
     <div class="actions">
-      <button class="small-btn" onclick="closeModal()">Cancel</button>
-      <button class="small-btn primary" onclick="submitEnquiry()">Send Enquiry</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn primary" onclick="submitEnquiry()">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings FAB + Modal -->
+<button id="settingsFab" style="position:fixed;right:14px;bottom:14px;padding:12px;border-radius:12px;background:var(--neon);border:none;color:#001217;font-weight:800;z-index:2000">Settings</button>
+
+<div id="settingsModal" class="modal-bg" style="display:none;align-items:center;justify-content:center">
+  <div class="modal" style="max-width:520px">
+    <h3 style="color:var(--neon)">Site Settings (local)</h3>
+    <div class="field"><label>Phone</label><input id="setPhone" placeholder="+91 90000 00000"></div>
+    <div class="field"><label>Email</label><input id="setEmail" placeholder="you@example.com"></div>
+    <div class="field"><label>Instagram URL</label><input id="setInsta" placeholder="https://instagram.com/yourpage"></div>
+    <div class="field"><label>Hero title</label><input id="setHero"></div>
+    <div class="field"><label>Hero subtitle</label><input id="setSub"></div>
+    <div class="field"><label>Logo URL (optional)</label><input id="setLogo"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+      <button class="btn" id="resetSettings">Reset</button>
+      <button class="btn primary" id="saveSettings">Save</button>
     </div>
   </div>
 </div>
 
 <script>
-/* ========== Data ========== */
-const companies = [
-  { id:'adani', name:'ADANI', kw:'3.30 kW', price:'₹ 170,000', panels330:10, panels360:9 },
-  { id:'tata', name:'TATA', kw:'3.39 kW', price:'₹ 181,000', panels330:11, panels360:10 },
-  { id:'waaree', name:'WAAREE', kw:'3.24 kW', price:'₹ 166,704', panels330:10, panels360:9 },
-  { id:'aps', name:'APS', kw:'3.20 kW', price:'₹ 160,000', panels330:10, panels360:9 }
+/* ----------------- Data (change here if you want default values) ----------------- */
+const DEFAULT = {
+  phone: '+91 90000 00000',
+  email: 'info@example.com',
+  instagram: 'https://instagram.com',
+  heroTitle: 'JUST call me services',
+  heroSub: 'your project, our commitment',
+  logo: '' // can set later via settings
+};
+
+/* Default solar companies — you can update via code or edit in future request */
+let companies = [
+  {id:'adani', name:'ADANI', kw:['3.30 kW'], panels:{'330W':10,'360W':9}, price:'₹ 170,000'},
+  {id:'tata', name:'TATA', kw:['3.39 kW'], panels:{'330W':11,'360W':10}, price:'₹ 181,000'},
+  {id:'waaree', name:'WAAREE', kw:['3.24 kW'], panels:{'330W':10,'360W':9}, price:'₹ 166,704'},
+  {id:'aps', name:'APS', kw:['3.20 kW'], panels:{'330W':10,'360W':9}, price:'₹ 160,000'}
 ];
 
-/* ========= navigation helpers ========= */
-function goHome(){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('home').classList.add('active');
-  document.querySelectorAll('.page').forEach(p => p.setAttribute('aria-hidden','true'));
-  document.getElementById('home').setAttribute('aria-hidden','false');
-  window.scrollTo({top:0,behavior:'smooth'});
-  history.pushState(null,'', location.pathname);
+/* ----------------- Utilities: localStorage settings ----------------- */
+function getSettings(){
+  try{ return JSON.parse(localStorage.getItem('jc_settings')||JSON.stringify(DEFAULT)); }
+  catch(e){ return DEFAULT; }
 }
+function saveSettings(s){ localStorage.setItem('jc_settings', JSON.stringify(s)); applySettings(); }
 
+function applySettings(){
+  const s = getSettings();
+  document.getElementById('heroTitle').innerText = s.heroTitle || DEFAULT.heroTitle;
+  document.getElementById('heroSub').innerText = s.heroSub || DEFAULT.heroSub;
+  document.getElementById('siteTitle').innerText = (s.siteName || DEFAULT.heroTitle);
+  document.getElementById('siteSub').innerText = s.heroSub || DEFAULT.heroSub;
+  const callLink = document.getElementById('callLink');
+  if(callLink) callLink.href = 'tel:' + (s.phone||DEFAULT.phone).replace(/\s/g,'');
+  // logo
+  if(s.logo){
+    const logo = document.getElementById('topLogo');
+    if(logo) logo.src = s.logo;
+  }
+  // instagram
+  window._jc_insta = s.instagram || DEFAULT.instagram;
+  // email
+  window._jc_email = s.email || DEFAULT.email;
+}
+applySettings();
+
+/* --------------- Navigation: open page by data-id --------------- */
+function showHome(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('home').classList.add('active');
+  document.getElementById('home').setAttribute('aria-hidden','false');
+  history.replaceState(null,'', location.pathname);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 function openPage(id){
   // hide home
   document.getElementById('home').classList.remove('active');
-  // hide pages and show requested
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // hide all pages
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const el = document.getElementById(id);
   if(!el) return;
   el.classList.add('active');
   el.setAttribute('aria-hidden','false');
-  history.pushState(null,'', '#'+id);
-  // if solar page, render companies
-  if(id === 'solar') renderCompanies();
+  history.replaceState(null,'', '#'+id);
+  window.scrollTo({top:0, behavior:'smooth'});
+  // if solar open, render companies
+  if(id==='solar') renderCompanies();
 }
 
-/* on back/forward */
-window.addEventListener('popstate', () => {
-  if(location.hash){
-    const id = location.hash.replace('#','');
+/* attach card clicks */
+document.querySelectorAll('.card[data-id]').forEach(c=>{
+  c.addEventListener('click', (e)=> {
+    const id = c.dataset.id;
+    // ripple effect
+    createRipple(e.currentTarget, e.clientX, e.clientY);
     openPage(id);
-  } else { goHome(); }
+  });
 });
 
-/* ========== Render companies in solar page ========== */
-function renderCompanies(){
-  const wrap = document.getElementById('companiesWrap');
-  wrap.innerHTML = '';
-  companies.forEach(c=>{
-    const div = document.createElement('div');
-    div.className = 'company-card';
-    div.innerHTML = `
-      <h4>${c.name}</h4>
-      <div class="meta">Package: <strong style="color:#fff">${c.kw}</strong></div>
-      <div class="meta">Panels: ${c.panels330} × 330W • ${c.panels360} × 360W</div>
-      <div class="price">${c.price}</div>
-      <div class="actions">
-        <button class="small-btn" onclick="compare('${c.id}')">Compare</button>
-        <button class="small-btn primary" onclick="openEnquiry('${c.name}')">Get Enquiry</button>
-      </div>
-    `;
-    wrap.appendChild(div);
-  });
-}
+/* back buttons */
+document.querySelectorAll('[data-back]').forEach(b=> b.addEventListener('click', ()=> {
+  createRipple(b, window.innerWidth/2, window.innerHeight/2);
+  showHome();
+}));
 
-/* placeholder compare */
-function compare(id){
-  alert('Added ' + id + ' to compare (demo).');
-}
-
-/* ========== Enquiry modal ========== */
-function openEnquiry(brand){
-  document.getElementById('brandField').value = brand;
-  document.getElementById('inputName').value = '';
-  document.getElementById('inputPhone').value = '';
-  document.getElementById('inputEmail').value = '';
-  document.getElementById('inputMsg').value = '';
-  document.getElementById('modalBg').style.display = 'flex';
-}
-
-function closeModal(){
-  document.getElementById('modalBg').style.display = 'none';
-}
-
-/* Submit: prefer mailto (opens user's mail) and also save locally */
-function submitEnquiry(){
-  const name = document.getElementById('inputName').value.trim();
-  const phone = document.getElementById('inputPhone').value.trim();
-  const email = document.getElementById('inputEmail').value.trim();
-  const msg = document.getElementById('inputMsg').value.trim();
-  const brand = document.getElementById('brandField').value;
-
-  if(!name || !phone){
-    alert('Please enter name and phone.');
-    return;
-  }
-
-  // Save to localStorage (demo)
-  const saves = JSON.parse(localStorage.getItem('jc_enquiries')||'[]');
-  saves.push({brand,name,phone,email,msg,date:new Date().toISOString()});
-  localStorage.setItem('jc_enquiries', JSON.stringify(saves));
-
-  // Compose mailto (if user clicks Send in their mail app)
-  const mailto = 'mailto:your-email@gmail.com'
-    + '?subject=' + encodeURIComponent('Enquiry: ' + brand + ' - ' + name)
-    + '&body=' + encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nBrand: ${brand}\nMessage:\n${msg}`);
-
-  // open mail client
-  window.location.href = mailto;
-
-  // close modal (if mail client not available, user saved locally)
-  closeModal();
-
-  setTimeout(()=> alert('Enquiry saved locally and mail client opened (if available).'), 500);
-}
-
-/* ========== small helpers ========== */
-function init(){
-  // show home initially
-  goHome();
-  // if page loaded with hash
+/* on load open hash */
+window.addEventListener('load', ()=>{
   if(location.hash){
     const id = location.hash.replace('#','');
     if(document.getElementById(id)) openPage(id);
   }
-}
-init();
+});
 
-</script>
-</body>
-  </html><!-- Paste THIS block just before the closing </body> tag -->
-<script>
-(function(){
-  // Show a page by id, hide home
-  function showPage(id){
-    if(!id) return;
-    // hide home
-    const home = document.getElementById('home');
-    if(home) home.classList.remove('active');
-    // hide all other pages
-    document.querySelectorAll('.page').forEach(p => {
-      p.classList.remove('active');
-      p.setAttribute('aria-hidden','true');
-    });
-    // show target
-    const target = document.getElementById(id);
-    if(target){
-      target.classList.add('active');
-      target.setAttribute('aria-hidden','false');
-      window.scrollTo({top:0, behavior:'smooth'});
-      // update hash (so linkable)
-      if(history && history.replaceState) history.replaceState(null, '', '#'+id);
-    }
+/* ----------------- Image upload per division (saved local) ----------------- */
+document.querySelectorAll('input[type=file][data-upload]').forEach(inp=>{
+  inp.addEventListener('change', function(e){
+    const id = this.dataset.upload;
+    const f = this.files[0];
+    if(!f) return;
+    const r = new FileReader();
+    r.onload = function(){ 
+      const data = r.result;
+      localStorage.setItem('jc_img_'+id, data);
+      const el = document.getElementById('img_'+id);
+      if(el){ el.src = data; el.style.display='block'; }
+      alert('Image saved locally for '+id);
+    };
+    r.readAsDataURL(f);
+  });
+});
+
+/* restore any saved division images */
+['govt','labour','transport','real','solar','consult'].forEach(id=>{
+  const saved = localStorage.getItem('jc_img_'+id);
+  if(saved){
+    const el = document.getElementById('img_'+id);
+    if(el) { el.src = saved; el.style.display='block'; }
   }
+});
 
-  // Show home view (hide pages)
-  function showHome(){
-    document.querySelectorAll('.page').forEach(p => {
-      p.classList.remove('active');
-      p.setAttribute('aria-hidden','true');
-    });
-    const home = document.getElementById('home');
-    if(home){
-      home.classList.add('active');
-      home.setAttribute('aria-hidden','false');
-      window.scrollTo({top:0,
+/* ----------------- Companies render (liquid glass boxes) ----------------- */
+function renderCompanies(){
+  const wrap = document.getElementById('companies');
+  wrap.innerHTML = '';
+  companies.forEach(c=>{
+    const d = document.createElement('div');
+    d.className = 'company';
+    d.innerHTML = `
+      <h4>${c.name}</h4>
+      <div class="meta">Capacity: <strong>${c.kw.join(', ')}</strong></div>
+      <div class="meta">Panels: ${Object.entries(c.panels).map(p=>`${p[1]} × ${p[0]}`).join(' • ')}</div>
+      <div class="price">${c.price}</div>
+      <div class="actions">
+        <button class="form-btn" onclick="openCompany('${c.id}')">View</button>
+     
