@@ -1,175 +1,171 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Just Call Me Services</title>
-
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #0a0f14;
-        color: white;
-    }
-
-    /* HERO SECTION */
-    .hero {
-        padding: 80px 20px;
-        text-align: center;
-        background: linear-gradient(160deg, #0a0f14, #111822);
-    }
-    .hero h1 {
-        font-size: 42px;
-        margin: 0;
-        color: #d4af37;
-        font-weight: bold;
-    }
-    .hero p {
-        font-size: 18px;
-        color: #c9d1d9;
-        margin-top: 8px;
-    }
-
-    .btn-group button {
-        margin: 10px;
-        padding: 12px 20px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 16px;
-    }
-    .call-btn {
-        background: #d4af37;
-        color: #0a0f14;
-    }
-    .view-btn {
-        background: transparent;
-        border: 1px solid #d4af37;
-        color: #d4af37;
-    }
-
-    /* DIVISION SECTION */
-    .container {
-        padding: 40px 20px;
-        max-width: 1100px;
-        margin: auto;
-    }
-    .section-title {
-        font-size: 32px;
-        color: #d4af37;
-        text-align: center;
-        margin-bottom: 25px;
-        font-weight: bold;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 20px;
-    }
-
-    .card {
-        background: #111822;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid #1f2937;
-        transition: 0.3s ease;
-        cursor: pointer;
-    }
-
-    .card:hover {
-        transform: translateY(-8px);
-        border-color: #d4af37;
-        box-shadow: 0px 10px 30px rgba(212, 175, 55, 0.2);
-    }
-
-    .card h3 {
-        color: #d4af37;
-        font-size: 20px;
-        margin: 0 0 10px 0;
-    }
-    .card p {
-        color: #c9d1d9;
-        font-size: 15px;
-        line-height: 1.4;
-    }
-
-    /* CONTACT SECTION */
-    .contact {
-        text-align: center;
-        padding: 40px 20px;
-        margin-top: 40px;
-        background: #111822;
-    }
-    .contact p {
-        color: #c9d1d9;
-        font-size: 15px;
-    }
-
-</style>
-</head>
-
-<body>
-
-<!-- HERO -->
-<div class="hero">
-    <h1>JUST CALL ME SERVICES</h1>
-    <p>सरकारी ठेके • लेबर सप्लाई • ट्रांसपोर्ट • रियल एस्टेट • सोलर प्रोजेक्ट्स</p>
-
-    <div class="btn-group">
-        <button class="call-btn" onclick="window.location.href='tel:+91XXXXXXXXXX'">📞 Call Now</button>
-        <button class="view-btn">Our Divisions</button>
-    </div>
-</div>
-
-<!-- DIVISIONS -->
+<!-- ===== REPLACE THIS WHOLE BLOCK INSTEAD OF YOUR OLD DIVISIONS BLOCK ===== -->
 <div class="container">
-    <h2 class="section-title">Our Divisions</h2>
+  <h2 class="section-title">Our Divisions</h2>
 
-    <div class="grid">
-
-        <div class="card">
-            <h3>सरकारी ठेके</h3>
-            <p>टेंडर सहायता • RFP दस्तावेज़ • बोली प्रबंधन</p>
-        </div>
-
-        <div class="card">
-            <h3>लेबर सप्लाई</h3>
-            <p>स्किल्ड / अनस्किल्ड लेबर • Daily / Monthly</p>
-        </div>
-
-        <div class="card">
-            <h3>ट्रांसपोर्ट</h3>
-            <p>Loading • Unloading • Local & Outstation Transport</p>
-        </div>
-
-        <div class="card">
-            <h3>रियल एस्टेट</h3>
-            <p>Buy • Sell • Rent • Commercial & Residential</p>
-        </div>
-
-        <div class="card">
-            <h3>सोलर प्रोजेक्ट्स</h3>
-            <p>3kW–10kW पैकेज • Installation • Net Metering</p>
-        </div>
-
-        <div class="card">
-            <h3>Consulting Services</h3>
-            <p>Project Management • Business Advisory</p>
-        </div>
-
+  <div class="grid" id="divisionsGrid">
+    <!-- cards use data-id and data-title and data-details -->
+    <div class="card" data-id="govt" data-title="सरकारी ठेके"
+         data-details="हम सरकारी टेंडरों में RFP analysis, दस्तावेज़ तैयारी, बोली जमा करना और follow-up में मदद करते हैं. End-to-end support देते हैं.">
+      <h3>सरकारी ठेके</h3>
+      <p>टेंडर सहायता • RFP दस्तावेज़ • बोली प्रबंधन</p>
     </div>
+
+    <div class="card" data-id="labour" data-title="लेबर सप्लाई"
+         data-details="शॉर्ट/लॉन्ग टर्म manpower supply। EPF/ESI/payslips handling और attendance support।">
+      <h3>लेबर सप्लाई</h3>
+      <p>स्किल्ड / अनस्किल्ड लेबर • Daily / Monthly</p>
+    </div>
+
+    <div class="card" data-id="transport" data-title="ट्रांसपोर्ट"
+         data-details="Mini truck, pickup, tempo, heavy वाहन और logistics movement. Route optimization, tracking और insurance options.">
+      <h3>ट्रांसपोर्ट</h3>
+      <p>Loading • Unloading • Local & Outstation Transport</p>
+    </div>
+
+    <div class="card" data-id="real" data-title="रियल एस्टेट"
+         data-details="Property acquisition, leasing, due diligence, legal paperwork और site verification services।">
+      <h3>रियल एस्टेट</h3>
+      <p>Buy • Sell • Rent • Commercial & Residential</p>
+    </div>
+
+    <div class="card" data-id="solar" data-title="सोलर प्रोजेक्ट्स"
+         data-details="Site survey, system design, procurement (panels, inverter), installation और maintenance. ROI analysis aur subsidy guidance.">
+      <h3>सोलर प्रोजेक्ट्स</h3>
+      <p>3kW–10kW पैकेज • Installation • Net Metering</p>
+    </div>
+
+    <div class="card" data-id="consult" data-title="Consulting Services"
+         data-details="Business planning, process setup, contractor management, compliance, service outsourcing और operations scaling।">
+      <h3>Consulting Services</h3>
+      <p>Project Management • Business Advisory</p>
+    </div>
+  </div>
 </div>
 
-<!-- CONTACT -->
-<div class="contact">
-    <h2 class="section-title">Contact Us</h2>
-    <p>📞 +91 XXXXX XXXXX</p>
-    <p>📩 your-email@gmail.com</p>
-    <p>📍 Gujarat, India</p>
+<!-- Slide-in / Modal Panel -->
+<div id="detailPanel" class="detail-panel" aria-hidden="true">
+  <div class="detail-inner">
+    <button id="closePanel" class="close-btn">✕ बंद करें</button>
+    <h3 id="detailTitle" style="color:#d4af37; margin-top:8px"></h3>
+    <p id="detailText" style="color:#dbe6ef"></p>
+
+    <div style="margin-top:18px; display:flex; gap:10px;">
+      <button class="cta gold" id="callBtn">📞 Call Now</button>
+      <button class="cta" id="enqBtn">📩 पूछताछ करें</button>
+    </div>
+  </div>
 </div>
 
-</body>
-</html>
+<!-- ===== Add these styles near your existing styles (or inside head style block) ===== -->
+<style>
+/* detail panel styles */
+.detail-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 420px;
+  max-width: 100%;
+  height: 100%;
+  background: #071026;
+  transform: translateX(110%);
+  transition: transform .28s cubic-bezier(.2,.9,.2,1);
+  box-shadow: -20px 0 60px rgba(2,6,23,0.6);
+  z-index: 2200;
+  padding: 22px;
+  overflow-y: auto;
+}
+.detail-panel.open { transform: translateX(0%); }
+
+/* inner */
+.detail-inner { padding-bottom: 40px; }
+
+/* close */
+.close-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* CTA */
+.cta {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.cta.gold {
+  background: #d4af37;
+  color: #071026;
+  border: none;
+  font-weight: 700;
+}
+
+/* make cards clearly clickable */
+.card { user-select: none; }
+.card:active { transform: translateY(-4px); }
+@media (max-width:520px) {
+  .detail-panel { width: 100%; transform: translateY(110%); bottom:0; top:auto; transition: transform .28s ease; }
+  .detail-panel.open { transform: translateY(0%); }
+}
+</style>
+
+<!-- ===== Add this script just before </body> (paste in the end of your file) ===== -->
+<script>
+  // simple panel open/close logic
+  (function(){
+    const cards = document.querySelectorAll('.card');
+    const panel = document.getElementById('detailPanel');
+    const titleEl = document.getElementById('detailTitle');
+    const textEl = document.getElementById('detailText');
+    const closeBtn = document.getElementById('closePanel');
+    const callBtn = document.getElementById('callBtn');
+    const enqBtn = document.getElementById('enqBtn');
+
+    // default phone - replace with your real number
+    const PHONE = '+91XXXXXXXXXX';
+
+    cards.forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const t = card.getAttribute('data-title') || card.querySelector('h3').innerText;
+        const d = card.getAttribute('data-details') || card.querySelector('p').innerText;
+        titleEl.innerText = t;
+        textEl.innerText = d;
+        // open panel
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden','false');
+        // set call link
+        callBtn.onclick = ()=> window.location.href = 'tel:' + PHONE;
+        enqBtn.onclick = ()=> {
+          // simple enquiry behaviour: open mail or scroll to contact
+          // try mailto first
+          const subject = encodeURIComponent(t + ' - Inquiry');
+          window.location.href = 'mailto:your-email@gmail.com?subject=' + subject;
+        };
+      });
+    });
+
+    closeBtn.addEventListener('click', ()=>{
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden','true');
+    });
+
+    // close when click outside panel on wide screens
+    document.addEventListener('click', (e)=>{
+      if(panel.classList.contains('open')){
+        const inside = panel.contains(e.target);
+        const clickedCard = e.target.closest('.card');
+        if(!inside && !clickedCard){
+          // close
+          panel.classList.remove('open');
+          panel.setAttribute('aria-hidden','true');
+        }
+      }
+    });
+  })();
+</script>
+<!-- ===== END REPLACEMENT BLOCK ===== -->
