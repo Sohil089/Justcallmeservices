@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Just Call Me Services</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0a0f14;
+        color: white;
+    }
+
+    /* HERO */
+    .hero {
+        padding: 80px 20px;
+        text-align: center;
+        background: linear-gradient(160deg, #0a0f14, #111822);
+    }
+    .hero h1 {
+        font-size: 42px;
+        margin: 0;
+        color: #d4af37;
+        font-weight: 700;
+    }
+    .hero p {
+        font-size: 18px;
+        color: #c9d1d9;
+        margin-top: 10px;
+    }
+    .btn-group button {
+        margin: 10px;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .call-btn {
+        background: #d4af37;
+        color: #0a0f14;
+    }
+    .view-btn {
+        background: transparent;
+        border: 1px solid #d4af37;
+        color: #d4af37;
+    }
+
+    /* DIVISIONS */
+    .container {
+        padding: 40px 20px;
+        max-width: 1100px;
+        margin: auto;
+    }
+    .section-title {
+        font-size: 32px;
+        color: #d4af37;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background: #111822;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #1f2937;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+    .card:hover {
+        transform: translateY(-8px);
+        border-color: #d4af37;
+        box-shadow: 0px 10px 30px rgba(212, 175, 55, 0.2);
+    }
+    .card h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #d4af37;
+    }
+    .card p {
+        margin-top: 10px;
+        color: #c9d1d9;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* CONTACT */
+    .contact {
+        text-align: center;
+        padding: 40px 20px;
+    }
+</style>
+
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>JUST CALL ME SERVICES</h1>
+    <p>सरकारी ठेके • लेबर सप्लाई • ट्रांसपोर्ट • रियल एस्टेट • सोलर प्रोजेक्ट्स</p>
+
+    <div class="btn-group">
+        <button class="call-btn" onclick="window.location.href='tel:+91XXXXXXXXXX'">📞 Call Now</button>
+        <button class="view-btn">Our Divisions</button>
+    </div>
+</div>
+
+<!-- DIVISIONS GRID -->
+<div class="container">
+    <h2 class="section-title">Our Divisions</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>सरकारी ठेके</h3>
+            <p>टेंडर सहायता • RFP दस्तावेज़ • बोली प्रबंधन</p>
+        </div>
+
+        <div class="card">
+            <h3>लेबर सप्लाई</h3>
+            <p>स्किल्ड / अनस्किल्ड लेबर • Daily / Monthly</p>
+        </div>
+
+        <div class="card">
+            <h3>ट्रांसपोर्ट</h3>
+            <p>Loading • Unloading • Local & Outstation Transport</p>
+        </div>
+
+        <div class="card">
+            <h3>रियल एस्टेट</h3>
+            <p>Buy • Sell • Rent • Commercial & Residential</p>
+        </div>
+
+        <div class="card">
+            <h3>सोलर प्रोजेक्ट्स</h3>
+            <p>3kW–10kW पैकेज • Installation • Net Metering</p>
+        </div>
+
+        <div class="card">
+            <h3>Consulting Services</h3>
+            <p>Project Management • Business Advisory</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <p>Phone: +91 XXXXX XXXXX</p>
+    <p>Email: your-email@gmail.com</p>
+    <p>Location: Gujarat, India</p>
+</div>
+
+</body>
+</html>
