@@ -1,171 +1,399 @@
-<!-- ===== REPLACE THIS WHOLE BLOCK INSTEAD OF YOUR OLD DIVISIONS BLOCK ===== -->
-<div class="container">
-  <h2 class="section-title">Our Divisions</h2>
-
-  <div class="grid" id="divisionsGrid">
-    <!-- cards use data-id and data-title and data-details -->
-    <div class="card" data-id="govt" data-title="सरकारी ठेके"
-         data-details="हम सरकारी टेंडरों में RFP analysis, दस्तावेज़ तैयारी, बोली जमा करना और follow-up में मदद करते हैं. End-to-end support देते हैं.">
-      <h3>सरकारी ठेके</h3>
-      <p>टेंडर सहायता • RFP दस्तावेज़ • बोली प्रबंधन</p>
-    </div>
-
-    <div class="card" data-id="labour" data-title="लेबर सप्लाई"
-         data-details="शॉर्ट/लॉन्ग टर्म manpower supply। EPF/ESI/payslips handling और attendance support।">
-      <h3>लेबर सप्लाई</h3>
-      <p>स्किल्ड / अनस्किल्ड लेबर • Daily / Monthly</p>
-    </div>
-
-    <div class="card" data-id="transport" data-title="ट्रांसपोर्ट"
-         data-details="Mini truck, pickup, tempo, heavy वाहन और logistics movement. Route optimization, tracking और insurance options.">
-      <h3>ट्रांसपोर्ट</h3>
-      <p>Loading • Unloading • Local & Outstation Transport</p>
-    </div>
-
-    <div class="card" data-id="real" data-title="रियल एस्टेट"
-         data-details="Property acquisition, leasing, due diligence, legal paperwork और site verification services।">
-      <h3>रियल एस्टेट</h3>
-      <p>Buy • Sell • Rent • Commercial & Residential</p>
-    </div>
-
-    <div class="card" data-id="solar" data-title="सोलर प्रोजेक्ट्स"
-         data-details="Site survey, system design, procurement (panels, inverter), installation और maintenance. ROI analysis aur subsidy guidance.">
-      <h3>सोलर प्रोजेक्ट्स</h3>
-      <p>3kW–10kW पैकेज • Installation • Net Metering</p>
-    </div>
-
-    <div class="card" data-id="consult" data-title="Consulting Services"
-         data-details="Business planning, process setup, contractor management, compliance, service outsourcing और operations scaling।">
-      <h3>Consulting Services</h3>
-      <p>Project Management • Business Advisory</p>
-    </div>
-  </div>
-</div>
-
-<!-- Slide-in / Modal Panel -->
-<div id="detailPanel" class="detail-panel" aria-hidden="true">
-  <div class="detail-inner">
-    <button id="closePanel" class="close-btn">✕ बंद करें</button>
-    <h3 id="detailTitle" style="color:#d4af37; margin-top:8px"></h3>
-    <p id="detailText" style="color:#dbe6ef"></p>
-
-    <div style="margin-top:18px; display:flex; gap:10px;">
-      <button class="cta gold" id="callBtn">📞 Call Now</button>
-      <button class="cta" id="enqBtn">📩 पूछताछ करें</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== Add these styles near your existing styles (or inside head style block) ===== -->
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Just Call Me Services — Demo</title>
 <style>
-/* detail panel styles */
-.detail-panel {
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 420px;
-  max-width: 100%;
-  height: 100%;
-  background: #071026;
-  transform: translateX(110%);
-  transition: transform .28s cubic-bezier(.2,.9,.2,1);
-  box-shadow: -20px 0 60px rgba(2,6,23,0.6);
-  z-index: 2200;
-  padding: 22px;
-  overflow-y: auto;
-}
-.detail-panel.open { transform: translateX(0%); }
+  :root{
+    --bg:#000810;
+    --card:#07101a;
+    --muted:#b6c6d6;
+    --gold:#d4af37;
+    --glass: rgba(255,255,255,0.04);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter, system-ui, Arial, sans-serif;
+    background:var(--bg);
+    color:#e6eef6;
+    -webkit-font-smoothing:antialiased;
+  }
 
-/* inner */
-.detail-inner { padding-bottom: 40px; }
+  /* Top bar with logo & edit toggle */
+  .topbar{
+    display:flex;align-items:center;gap:12px;
+    padding:10px 16px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  }
+  .logo-wrap{display:flex;align-items:center;gap:12px}
+  .logo{
+    height:44px;width:44px;border-radius:8px;object-fit:cover;border:1px solid rgba(255,255,255,0.06);
+    background:var(--glass);
+  }
+  .site-title{font-weight:700;color:var(--gold);font-size:16px}
+  .spacer{flex:1}
 
-/* close */
-.close-btn {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.06);
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-}
+  .controls{display:flex;gap:8px;align-items:center}
+  .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer}
+  .btn.gold{background:var(--gold);color:#07101a;border:none;font-weight:700}
+  .small{padding:6px 8px;font-size:14px}
 
-/* CTA */
-.cta {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.cta.gold {
-  background: #d4af37;
-  color: #071026;
-  border: none;
-  font-weight: 700;
-}
+  /* HERO */
+  .hero{padding:36px 18px;text-align:center}
+  .hero h1{margin:0;font-size:34px;color:var(--gold);letter-spacing:0.6px}
+  .hero p{margin-top:8px;color:var(--muted);font-size:15px}
+  .hero .cta{margin-top:14px;display:flex;gap:10px;justify-content:center}
 
-/* make cards clearly clickable */
-.card { user-select: none; }
-.card:active { transform: translateY(-4px); }
-@media (max-width:520px) {
-  .detail-panel { width: 100%; transform: translateY(110%); bottom:0; top:auto; transition: transform .28s ease; }
-  .detail-panel.open { transform: translateY(0%); }
-}
+  /* container */
+  .container{max-width:1100px;margin:26px auto;padding:0 16px}
+
+  .section-title{color:var(--gold);font-weight:700;font-size:20px;margin:0 0 12px 0;text-align:center}
+
+  /* Grid cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .card{
+    background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+    transition:transform .18s ease,box-shadow .18s ease;cursor:pointer;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,0.6);border-color:var(--gold)}
+  .card h3{margin:0;color:var(--gold);font-size:18px}
+  .card p{margin:8px 0 0 0;color:var(--muted);font-size:14px;line-height:1.45}
+
+  /* detail panel */
+  .detail-panel{
+    position:fixed;right:0;top:0;height:100%;width:420px;max-width:100%;
+    background:#071026;box-shadow:-20px 0 60px rgba(2,6,23,0.6);transform:translateX(110%);
+    transition:transform .28s cubic-bezier(.2,.9,.2,1);z-index:2200;padding:20px;overflow:auto;
+  }
+  .detail-panel.open{transform:translateX(0%)}
+  .detail-panel .close{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;padding:6px 8px;border-radius:8px;cursor:pointer}
+  .detail-panel h3{color:var(--gold);margin:12px 0 6px 0}
+  .detail-panel p{color:#dbe6ef;line-height:1.6}
+
+  /* mobile: bottom sheet */
+  @media(max-width:520px){
+    .detail-panel{left:0;right:0;bottom:0;top:auto;height:70%;transform:translateY(110%);border-top-left-radius:12px;border-top-right-radius:12px}
+    .detail-panel.open{transform:translateY(0%)}
+  }
+
+  /* contact area */
+  .contact{background:var(--card);border-radius:12px;padding:18px;margin-top:18px;border:1px solid rgba(255,255,255,0.03)}
+  .contact p{margin:6px 0;color:var(--muted)}
+
+  /* inline edit style */
+  [contenteditable="true"]{outline:2px dashed rgba(212,175,55,0.12);padding:2px;border-radius:4px}
+  .edit-note{font-size:13px;color:var(--muted);margin-left:8px}
+
+  /* file input invisible but button visible */
+  input[type=file]{display:none}
+  .file-btn{display:inline-block;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);cursor:pointer;background:transparent;color:#fff}
+
+  /* footer small */
+  .footer{margin:30px 0;text-align:center;color:#8ea0b6;font-size:13px}
 </style>
+</head>
+<body>
 
-<!-- ===== Add this script just before </body> (paste in the end of your file) ===== -->
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo-wrap">
+    <img id="logoImg" class="logo" src="/mnt/data/A_website_homepage_for_Just_Call_Me_Services,_a_bu.png" alt="logo">
+    <div>
+      <div class="site-title" id="siteTitle">JUST CALL ME SERVICES</div>
+      <div style="font-size:12px;color:var(--muted)">Multi-business solutions</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="controls">
+    <label class="file-btn" title="Upload logo">
+      लोगो बदलें
+      <input id="logoInput" type="file" accept="image/*">
+    </label>
+
+    <button id="editToggle" class="btn small">Edit Mode</button>
+    <button id="saveBtn" class="btn small" style="display:none">Save</button>
+    <button id="resetBtn" class="btn small" style="display:none">Reset</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 id="heroTitle" contenteditable="false">JUST CALL ME SERVICES</h1>
+  <p id="heroSub" contenteditable="false">सरकारी ठेके • लेबर सप्लाई • ट्रांसपोर्ट • रियल एस्टेट • सोलर प्रोजेक्ट्स</p>
+
+  <div class="cta">
+    <button class="btn gold" onclick="window.location.href='tel:+91XXXXXXXXXX'">📞 Call Now</button>
+    <button class="btn" onclick="document.getElementById('divGrid').scrollIntoView({behavior:'smooth'})">Our Divisions</button>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="container">
+  <h2 class="section-title" id="divTitle">Our Divisions</h2>
+
+  <div class="grid" id="divGrid">
+    <!-- card template - all text editable in edit mode -->
+    <div class="card" data-id="govt" data-title="सरकारी ठेके" data-details="हम सरकारी टेंडरों में RFP analysis, दस्तावेज़ तैयारी, बोली जमा करना और follow-up में मदद करते हैं.">
+      <h3 contenteditable="false">सरकारी ठेके</h3>
+      <p contenteditable="false">टेंडर सहायता • RFP दस्तावेज़ • बोली प्रबंधन</p>
+    </div>
+
+    <div class="card" data-id="labour" data-title="लेबर सप्लाई" data-details="शॉर्ट/लॉन्ग टर्म manpower supply। EPF/ESI/payslips handling और attendance support।">
+      <h3 contenteditable="false">लेबर सप्लाई</h3>
+      <p contenteditable="false">स्किल्ड / अनस्किल्ड लेबर • Daily / Monthly</p>
+    </div>
+
+    <div class="card" data-id="transport" data-title="ट्रांसपोर्ट" data-details="Mini truck, pickup, tempo, heavy वाहन और logistics movement.">
+      <h3 contenteditable="false">ट्रांसपोर्ट</h3>
+      <p contenteditable="false">Loading • Unloading • Local & Outstation Transport</p>
+    </div>
+
+    <div class="card" data-id="real" data-title="रियल एस्टेट" data-details="Property acquisition, leasing, due diligence, legal paperwork और site verification services।">
+      <h3 contenteditable="false">रियल एस्टेट</h3>
+      <p contenteditable="false">Buy • Sell • Rent • Commercial & Residential</p>
+    </div>
+
+    <div class="card" data-id="solar" data-title="सोलर प्रोजेक्ट्स" data-details="Site survey, system design, procurement (panels, inverter), installation और maintenance.">
+      <h3 contenteditable="false">सोलर प्रोजेक्ट्स</h3>
+      <p contenteditable="false">3kW–10kW पैकेज • Installation • Net Metering</p>
+    </div>
+
+    <div class="card" data-id="consult" data-title="Consulting Services" data-details="Business planning, process setup, contractor management और operations scaling।">
+      <h3 contenteditable="false">Consulting Services</h3>
+      <p contenteditable="false">Project Management • Business Advisory</p>
+    </div>
+  </div>
+
+  <!-- contact / small -->
+  <div class="contact" id="contactBlock">
+    <h3 style="color:var(--gold);margin:0">Contact</h3>
+    <p id="contactPhone" contenteditable="false">📞 +91 XXXXX XXXXX</p>
+    <p id="contactEmail" contenteditable="false">📩 your-email@gmail.com</p>
+    <p id="contactLoc" contenteditable="false">📍 Gujarat, India</p>
+  </div>
+
+  <div class="footer">Demo — Edit mode saves to your browser only (local preview). To publish, push to GitHub Pages or Netlify.</div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div id="detailPanel" class="detail-panel" aria-hidden="true">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+    <div style="display:flex;flex-direction:column">
+      <div style="font-size:12px;color:var(--muted)">Division</div>
+      <h3 id="detailTitle" style="margin:4px 0 0 0;color:var(--gold)"></h3>
+    </div>
+    <div>
+      <button id="editDivisionBtn" class="btn" title="Edit division (edit mode)">Edit</button>
+      <button id="closePanel" class="close">✕ बंद करें</button>
+    </div>
+  </div>
+
+  <p id="detailText" style="margin-top:12px;color:#dbe6ef"></p>
+
+  <div style="margin-top:16px;display:flex;gap:10px">
+    <button id="callNow" class="btn gold">📞 Call Now</button>
+    <button id="enquiryBtn" class="btn">📩 पूछताछ</button>
+  </div>
+
+  <div style="margin-top:18px;color:var(--muted);font-size:13px">
+    <strong>Note:</strong> Edit Mode allows inline changes. Save to persist locally.
+  </div>
+</div>
+
+<!-- SCRIPTS -->
 <script>
-  // simple panel open/close logic
-  (function(){
-    const cards = document.querySelectorAll('.card');
-    const panel = document.getElementById('detailPanel');
-    const titleEl = document.getElementById('detailTitle');
-    const textEl = document.getElementById('detailText');
-    const closeBtn = document.getElementById('closePanel');
-    const callBtn = document.getElementById('callBtn');
-    const enqBtn = document.getElementById('enqBtn');
+(function(){
+  // helper selectors
+  const logoImg = document.getElementById('logoImg');
+  const logoInput = document.getElementById('logoInput');
+  const editToggle = document.getElementById('editToggle');
+  const saveBtn = document.getElementById('saveBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const heroTitle = document.getElementById('heroTitle');
+  const heroSub = document.getElementById('heroSub');
+  const divGrid = document.getElementById('divGrid');
+  const contactPhone = document.getElementById('contactPhone');
+  const contactEmail = document.getElementById('contactEmail');
+  const contactLoc = document.getElementById('contactLoc');
+  const detailPanel = document.getElementById('detailPanel');
+  const detailTitle = document.getElementById('detailTitle');
+  const detailText = document.getElementById('detailText');
+  const closePanel = document.getElementById('closePanel');
+  const callNow = document.getElementById('callNow');
+  const enquiryBtn = document.getElementById('enquiryBtn');
+  const editDivisionBtn = document.getElementById('editDivisionBtn');
 
-    // default phone - replace with your real number
-    const PHONE = '+91XXXXXXXXXX';
+  // default phone/email (update these inside page or via edit mode)
+  let DEFAULT_PHONE = '+91XXXXXXXXXX';
+  let DEFAULT_EMAIL = 'your-email@gmail.com';
 
-    cards.forEach(card=>{
-      card.addEventListener('click', ()=>{
-        const t = card.getAttribute('data-title') || card.querySelector('h3').innerText;
-        const d = card.getAttribute('data-details') || card.querySelector('p').innerText;
-        titleEl.innerText = t;
-        textEl.innerText = d;
-        // open panel
-        panel.classList.add('open');
-        panel.setAttribute('aria-hidden','false');
-        // set call link
-        callBtn.onclick = ()=> window.location.href = 'tel:' + PHONE;
-        enqBtn.onclick = ()=> {
-          // simple enquiry behaviour: open mail or scroll to contact
-          // try mailto first
-          const subject = encodeURIComponent(t + ' - Inquiry');
-          window.location.href = 'mailto:your-email@gmail.com?subject=' + subject;
-        };
-      });
+  // load saved state from localStorage if exists
+  function loadState(){
+    try{
+      const state = JSON.parse(localStorage.getItem('jc_state') || '{}');
+      if(state.logo) logoImg.src = state.logo;
+      if(state.heroTitle) heroTitle.innerText = state.heroTitle;
+      if(state.heroSub) heroSub.innerText = state.heroSub;
+      if(state.contactPhone) contactPhone.innerText = state.contactPhone;
+      if(state.contactEmail) contactEmail.innerText = state.contactEmail;
+      if(state.contactLoc) contactLoc.innerText = state.contactLoc;
+      // divisions
+      if(state.divisions){
+        state.divisions.forEach(d=>{
+          const el = divGrid.querySelector('[data-id="'+d.id+'"]');
+          if(el){
+            if(d.title) { el.querySelector('h3').innerText = d.title; el.dataset.title = d.title; }
+            if(d.small) { el.querySelector('p').innerText = d.small; el.dataset.small = d.small; }
+            if(d.details) { el.dataset.details = d.details; }
+          }
+        });
+      }
+    }catch(e){console.warn('loadState error',e)}
+  }
+  loadState();
+
+  // save current editable content to localStorage
+  function saveState(){
+    const divs = Array.from(divGrid.querySelectorAll('.card')).map(el=>{
+      return {
+        id: el.dataset.id,
+        title: el.querySelector('h3').innerText,
+        small: el.querySelector('p').innerText,
+        details: el.dataset.details || el.querySelector('p').innerText
+      };
     });
+    const state = {
+      logo: logoImg.src,
+      heroTitle: heroTitle.innerText,
+      heroSub: heroSub.innerText,
+      contactPhone: contactPhone.innerText,
+      contactEmail: contactEmail.innerText,
+      contactLoc: contactLoc.innerText,
+      divisions: divs
+    };
+    localStorage.setItem('jc_state', JSON.stringify(state));
+    alert('Saved locally (browser).');
+  }
 
-    closeBtn.addEventListener('click', ()=>{
-      panel.classList.remove('open');
-      panel.setAttribute('aria-hidden','true');
+  // reset localStorage and reload default
+  function resetState(){
+    if(confirm('Reset local changes and restore defaults?')){
+      localStorage.removeItem('jc_state');
+      location.reload();
+    }
+  }
+
+  // toggle edit mode
+  let editMode = false;
+  function setEditMode(on){
+    editMode = !!on;
+    editToggle.classList.toggle('active', editMode);
+    saveBtn.style.display = editMode ? 'inline-block' : 'none';
+    resetBtn.style.display = editMode ? 'inline-block' : 'none';
+
+    // make certain elements contenteditable
+    [heroTitle, heroSub, contactPhone, contactEmail, contactLoc].forEach(el=>{
+      el.contentEditable = editMode ? "true" : "false";
     });
-
-    // close when click outside panel on wide screens
-    document.addEventListener('click', (e)=>{
-      if(panel.classList.contains('open')){
-        const inside = panel.contains(e.target);
-        const clickedCard = e.target.closest('.card');
-        if(!inside && !clickedCard){
-          // close
-          panel.classList.remove('open');
-          panel.setAttribute('aria-hidden','true');
-        }
+    // enable inline editing on cards' text
+    divGrid.querySelectorAll('.card').forEach(c=>{
+      c.querySelector('h3').contentEditable = editMode ? "true" : "false";
+      c.querySelector('p').contentEditable = editMode ? "true" : "false";
+      // if entering edit mode, also show small hint
+      if(editMode){
+        c.style.outline = '1px dashed rgba(212,175,55,0.06)';
+      } else {
+        c.style.outline = 'none';
       }
     });
-  })();
+  }
+
+  editToggle.addEventListener('click', ()=>{
+    setEditMode(!editMode);
+    editToggle.innerText = editMode ? 'Exit Edit' : 'Edit Mode';
+  });
+  saveBtn.addEventListener('click', saveState);
+  resetBtn.addEventListener('click', resetState);
+
+  // logo upload preview
+  logoInput.addEventListener('change', (e)=>{
+    const f = e.target.files[0];
+    if(!f) return;
+    const fr = new FileReader();
+    fr.onload = function(){ logoImg.src = fr.result; };
+    fr.readAsDataURL(f);
+  });
+
+  // click cards to open panel
+  divGrid.addEventListener('click', function(e){
+    const card = e.target.closest('.card');
+    if(!card) return;
+    const title = card.dataset.title || card.querySelector('h3').innerText;
+    const details = card.dataset.details || card.querySelector('p').innerText;
+    detailTitle.innerText = title;
+    detailText.innerText = details;
+    detailPanel.classList.add('open');
+    detailPanel.setAttribute('aria-hidden','false');
+
+    // set call/enquiry actions
+    callNow.onclick = ()=> window.location.href = 'tel:'+DEFAULT_PHONE;
+    enquiryBtn.onclick = ()=> {
+      const subject = encodeURIComponent(title + ' - Inquiry');
+      window.location.href = 'mailto:'+DEFAULT_EMAIL+'?subject='+subject;
+    };
+  });
+
+  closePanel.addEventListener('click', ()=> {
+    detailPanel.classList.remove('open');
+    detailPanel.setAttribute('aria-hidden','true');
+  });
+
+  // Edit division inside panel (only if editMode)
+  editDivisionBtn.addEventListener('click', ()=>{
+    if(!editMode){
+      alert('Turn on Edit Mode first to modify division details.');
+      return;
+    }
+    // allow editing of the text area
+    const editable = detailText.contentEditable === 'true';
+    detailText.contentEditable = editable ? 'false' : 'true';
+    detailText.style.outline = !editable ? '2px dashed rgba(212,175,55,0.12)' : 'none';
+    editDivisionBtn.innerText = editable ? 'Edit' : 'Done';
+    if(editable){
+      // just turned off editing, save new value back to card dataset
+      const title = detailTitle.innerText;
+      const card = Array.from(divGrid.querySelectorAll('.card')).find(c=> (c.dataset.title || c.querySelector('h3').innerText) === title);
+      if(card){
+        card.dataset.details = detailText.innerText;
+      }
+    }
+  });
+
+  // keyboard escape to close panel
+  document.addEventListener('keydown', (e)=> { if(e.key==='Escape'){ detailPanel.classList.remove('open'); detailPanel.setAttribute('aria-hidden','true'); } });
+
+  // allow saving DEFAULT_PHONE and DEFAULT_EMAIL via edit (user edits contact lines)
+  // update defaults when contactEmail / contactPhone lose focus (if editMode)
+  [contactPhone, contactEmail].forEach(el=>{
+    el.addEventListener('blur', ()=> {
+      // try to extract raw phone/email without emoji
+      DEFAULT_PHONE = contactPhone.innerText.replace(/[^+\d]/g,'') || DEFAULT_PHONE;
+      DEFAULT_EMAIL = contactEmail.innerText.replace(/.*\s/,'') || DEFAULT_EMAIL;
+    });
+  });
+
+  // ensure loaded logos / content show quickly
+  window.addEventListener('load', ()=> {
+    // Nothing extra
+  });
+
+})();
 </script>
-<!-- ===== END REPLACEMENT BLOCK ===== -->
+
+</body>
+      </html>
