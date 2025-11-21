@@ -1,115 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JUST CALL ME SERVICES</title>
-
-<!-- CSS will be added in Part 2 -->
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Just Call Me Services</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header class="site-header">
+    <div class="header-left">
+      <img id="siteLogo" src="logo.png" alt="Logo" />
+      <div class="site-title">
+        <h1>JUST CALL ME SERVICES</h1>
+        <p class="subtitle">Your Project, Our Commitment</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="adminEditBtn" class="btn small">Edit (Admin)</button>
+    </div>
+  </header>
 
-<!-- HEADER -->
-<header class="header">
-    <div class="logo-area">
-        <img id="siteLogo" src="" alt="Logo">
-        <div class="title-block">
-            <h1 id="siteName">JUST CALL ME SERVICES</h1>
-            <p id="siteTagline">Your Project, Our Commitment</p>
+  <main class="main">
+    <section class="home">
+      <h2 class="section-title neon">Our Divisions</h2>
+
+      <div id="divisionsGrid" class="grid">
+        <!-- JS will inject division cards here -->
+      </div>
+    </section>
+
+    <!-- Section panels: will open when clicking division -->
+    <section id="divisionPanel" class="panel hidden">
+      <div class="panel-header">
+        <button id="backBtn" class="btn small">← Back</button>
+        <h2 id="panelTitle" class="neon"></h2>
+      </div>
+
+      <div id="panelContent">
+        <!-- Content injected by JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating contact buttons -->
+  <div class="floating">
+    <a id="whatsappBtn" class="float-btn" href="#" target="_blank">WhatsApp</a>
+    <a id="callBtn" class="float-btn" href="tel:+919000000000">Call</a>
+  </div>
+
+  <!-- Modal for company / property details -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-inner">
+      <button id="closeModal" class="btn small">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Enquiry form (modal) -->
+  <div id="enquiryModal" class="modal hidden">
+    <div class="modal-inner">
+      <button id="closeEnquiry" class="btn small">✕</button>
+      <h3>Get Enquiry</h3>
+      <form id="enquiryForm">
+        <label>Name<input name="name" required /></label>
+        <label>Phone<input name="phone" required /></label>
+        <label>Email<input name="email" type="email" /></label>
+        <label>Message<textarea name="message"></textarea></label>
+        <div class="form-actions">
+          <button type="submit" class="btn">Send</button>
         </div>
+      </form>
     </div>
+  </div>
 
-    <div class="header-buttons">
-        <a id="whButton" href="#" class="btn whatsapp-btn">WhatsApp</a>
-        <a id="callButton" href="#" class="btn call-btn">Call</a>
-    </div>
-</header>
-
-<!-- HOME SECTION -->
-<section id="home" class="page active">
-    <h2 class="section-title">Our Divisions</h2>
-
-    <div id="divisionGrid" class="division-grid">
-        <!-- 6 editable divisions -->
-        <div class="division-card" data-target="govt">Government Contracts</div>
-        <div class="division-card" data-target="labour">Labour Supply</div>
-        <div class="division-card" data-target="transport">Transport</div>
-        <div class="division-card" data-target="realestate">Real Estate</div>
-        <div class="division-card" data-target="solar">Solar Projects</div>
-        <div class="division-card" data-target="consult">Consulting</div>
-    </div>
-</section>
-
-<!-- 5 Premium Division Pages -->
-<div id="dynamicPages">
-
-    <!-- Template used by JS to generate all 5 pages -->
-</div>
-
-<!-- SOLAR PAGE SPECIAL -->
-<section id="solarPage" class="page">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-
-    <h2 class="section-title">Solar Brands</h2>
-
-    <div id="solarBrandGrid" class="brand-grid"></div>
-
-    <div id="solarBrandDetail" class="brand-detail"></div>
-
-    <h3 class="section-title">Gallery</h3>
-    <div id="solarGallery" class="gallery"></div>
-
-    <h3 class="section-title">FAQ</h3>
-    <div id="solarFAQ"></div>
-</section>
-
-<!-- SETTINGS POPUP -->
-<div id="settingsOverlay" class="overlay">
-    <div class="settings-box">
-        <h2>Site Settings</h2>
-
-        <label>Phone</label>
-        <input id="setPhone" type="text">
-
-        <label>WhatsApp Number</label>
-        <input id="setWhatsApp" type="text">
-
-        <label>Email</label>
-        <input id="setEmail" type="text">
-
-        <label>Instagram URL</label>
-        <input id="setInstagram" type="text">
-
-        <label>Logo URL</label>
-        <input id="setLogo" type="text">
-
-        <button onclick="saveSettings()" class="save-btn">Save</button>
-        <button onclick="closeSettings()" class="close-btn">Close</button>
-    </div>
-</div>
-
-<!-- SETTINGS BUTTON -->
-<button class="settings-btn" onclick="openSettings()">⚙</button>
-
-<!-- FOOTER -->
-<footer>
-    <h2>JUST CALL ME SERVICES</h2>
-    <p id="footerAddress">Gujarat, India</p>
-    <p id="footerPhone">Phone: +91 90000 00000</p>
-    <p id="footerEmail">Email: info@example.com</p>
-
-    <div class="social-links">
-        <a id="footerInsta" href="#">Instagram</a>
-        <a id="footerWA" href="#">WhatsApp</a>
-    </div>
-
-    <p class="copy">© 2025 JUST CALL ME SERVICES</p>
-</footer>
-
-<!-- JS will be added in Part 3 -->
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
