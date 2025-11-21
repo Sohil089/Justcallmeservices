@@ -15,7 +15,6 @@ body{
   -moz-osx-font-smoothing:grayscale;
   min-height:100vh;
 }
-
 /* header */
 .header{
   display:flex;
@@ -29,7 +28,7 @@ body{
 .title-block h1{margin:0;color:var(--neon);letter-spacing:1px}
 .title-block p{margin:0;font-size:12px;color:rgba(191,239,255,0.6)}
 
-.admin-controls button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--neon);padding:8px 10px;border-radius:8px;cursor:pointer;margin-left:8px}
+.admin-controls button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--neon);padding:8px 10px;border-radius:8px;cursor:pointer;margin-left:8px;Admin Password : Sohil@9898}
 
 /* main */
 .main{padding:28px}
@@ -49,7 +48,6 @@ body{
 .card .desc{font-size:13px;color:rgba(191,239,255,0.6);margin:10px 0}
 .card-actions{display:flex;gap:8px}
 .card-actions button{background:transparent;border:1px solid rgba(19,209,255,0.12);color:var(--neon);padding:8px 12px;border-radius:10px;cursor:pointer}
-
 /* overlay modal */
 .overlay{
   position:fixed;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;
