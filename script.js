@@ -1,261 +1,169 @@
-/* ============================================================
-   JUST CALL ME SERVICES — FULL SITE JS (SPA MODE)
-   All divisions editable, solar system dynamic, settings panel,
-   gallery, FAQ, ripple effect, localStorage saving, etc.
-===============================================================*/
-
-/* =========================
-   RIPPLE EFFECT
-========================= */
-document.addEventListener("click", function (e) {
-    const el = e.target.closest(".btn, .division-card, .brand-card");
-    if (!el) return;
-
-    const circle = document.createElement("span");
-    const rect = el.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-
-    circle.style.width = circle.style.height = size + "px";
-    circle.style.left = e.clientX - rect.left - size / 2 + "px";
-    circle.style.top = e.clientY - rect.top - size / 2 + "px";
-    circle.classList.add("ripple");
-
-    el.appendChild(circle);
-
-    setTimeout(() => circle.remove(), 600);
-});
-
-/* =========================
-   SETTINGS MANAGEMENT
-========================= */
-let SETTINGS = {
-    phone: "+91 90000 00000",
-    whatsapp: "+91 90000 00000",
-    email: "info@example.com",
-    instagram: "https://instagram.com",
-    logo: "",
-};
-
-loadSettings();
-
-function openSettings() {
-    document.getElementById("settingsOverlay").style.display = "flex";
-
-    document.getElementById("setPhone").value = SETTINGS.phone;
-    document.getElementById("setWhatsApp").value = SETTINGS.whatsapp;
-    document.getElementById("setEmail").value = SETTINGS.email;
-    document.getElementById("setInstagram").value = SETTINGS.instagram;
-    document.getElementById("setLogo").value = SETTINGS.logo;
-}
-
-function closeSettings() {
-    document.getElementById("settingsOverlay").style.display = "none";
-}
-
-function saveSettings() {
-    SETTINGS.phone = document.getElementById("setPhone").value;
-    SETTINGS.whatsapp = document.getElementById("setWhatsApp").value;
-    SETTINGS.email = document.getElementById("setEmail").value;
-    SETTINGS.instagram = document.getElementById("setInstagram").value;
-    SETTINGS.logo = document.getElementById("setLogo").value;
-
-    localStorage.setItem("JCS_SETTINGS", JSON.stringify(SETTINGS));
-
-    applySettings();
-    closeSettings();
-}
-
-function loadSettings() {
-    const saved = localStorage.getItem("JCS_SETTINGS");
-    if (saved) SETTINGS = JSON.parse(saved);
-
-    applySettings();
-}
-
-function applySettings() {
-    document.getElementById("callButton").href =
-        "tel:" + SETTINGS.phone.replace(/[^0-9]/g, "");
-
-    document.getElementById("whButton").href =
-        "https://wa.me/" +
-        SETTINGS.whatsapp.replace(/[^0-9]/g, "");
-
-    document.getElementById("footerPhone").innerText =
-        "Phone: " + SETTINGS.phone;
-
-    document.getElementById("footerEmail").innerText =
-        "Email: " + SETTINGS.email;
-
-    document.getElementById("footerInsta").href = SETTINGS.instagram;
-    document.getElementById("footerWA").href =
-        "https://wa.me/" + SETTINGS.whatsapp.replace(/[^0-9]/g, "");
-
-    if (SETTINGS.logo) {
-        document.getElementById("siteLogo").src = SETTINGS.logo;
-    }
-}
-
-/* =========================
-   PAGE NAVIGATION
-========================= */
-
-const pages = document.querySelectorAll(".page");
-
-function goHome() {
-    pages.forEach((p) => (p.style.display = "none"));
-    document.getElementById("home").style.display = "block";
-    window.scrollTo(0, 0);
-}
-
-document.querySelectorAll(".division-card").forEach((card) => {
-    card.addEventListener("click", () => {
-        let target = card.getAttribute("data-target");
-
-        pages.forEach((p) => (p.style.display = "none"));
-
-        if (target === "solar") {
-            document.getElementById("solarPage").style.display = "block";
-            loadSolarBrands();
-        } else {
-            openDivisionPage(target);
-        }
-    });
-});
-
-/* =========================
-   DIVISION PAGE GENERATOR
-========================= */
-
-const DIVISION_DATA = {
-    govt: "Government Contracts",
-    labour: "Labour Supply",
-    transport: "Transport",
-    realestate: "Real Estate",
-    consult: "Consulting",
-};
-
-function openDivisionPage(div) {
-    const container = document.getElementById("dynamicPages");
-
-    container.innerHTML = `
-        <section class="page active">
-            <button class="back-btn" onclick="goHome()">← Back</button>
-
-            <h2 class="section-title">${DIVISION_DATA[div]}</h2>
-
-            <img src="" class="banner-img" id="banner_${div}">
-
-            <h3>Description</h3>
-            <p contenteditable="true" class="editable-text">This is a placeholder description. You can edit it later.</p>
-
-            <h3>What We Do</h3>
-            <div class="feature-boxes">
-                <div class="feature-box"><h3>Feature 1</h3><p contenteditable="true">Lorem ipsum text</p></div>
-                <div class="feature-box"><h3>Feature 2</h3><p contenteditable="true">Lorem ipsum text</p></div>
-                <div class="feature-box"><h3>Feature 3</h3><p contenteditable="true">Lorem ipsum text</p></div>
-            </div>
-
-            <h3>Services</h3>
-            <ul id="services_${div}">
-                <li contenteditable="true">Placeholder service 1</li>
-                <li contenteditable="true">Placeholder service 2</li>
-                <li contenteditable="true">Placeholder service 3</li>
-            </ul>
-
-            <h3>Gallery</h3>
-            <input type="file" multiple id="galleryInput_${div}">
-            <div id="gallery_${div}" class="gallery"></div>
-
-            <h3>FAQ</h3>
-            <div id="faq_${div}">
-                <div class="faq-item"><h4 contenteditable="true">Question 1</h4><p contenteditable="true">Answer</p></div>
-                <div class="faq-item"><h4 contenteditable="true">Question 2</h4><p contenteditable="true">Answer</p></div>
-            </div>
-
-            <br>
-
-            <a href="${document.getElementById("callButton").href}" class="btn call-btn">Call</a>
-            <a href="${document.getElementById("whButton").href}" class="btn whatsapp-btn">WhatsApp</a>
-            <a href="${SETTINGS.instagram}" class="btn">Instagram</a>
-
-        </section>
-    `;
-
-    container.style.display = "block";
-
-    document.getElementById(galleryInput_${div}).addEventListener("change", (e) => {
-        const gallery = document.getElementById(gallery_${div});
-        gallery.innerHTML = "";
-
-        [...e.target.files].forEach((file) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                const img = document.createElement("img");
-                img.src = reader.result;
-                gallery.appendChild(img);
-            };
-            reader.readAsDataURL(file);
-        });
-    });
-
-    window.scrollTo(0, 0);
-}
-
-/* =========================
-   SOLAR BRANDS
-========================= */
-
-const SOLAR_BRANDS = [
-    { name: "ADANI", price: "₹170,000", kw: "3.3kW" },
-    { name: "TATA", price: "₹181,000", kw: "3.39kW" },
-    { name: "WAAREE", price: "₹166,704", kw: "3.24kW" },
-    { name: "APS", price: "₹160,000", kw: "3.20kW" },
+// ====== CONFIG: edit this data to add/update content easily ======
+const DIVISIONS = [
+  { id: "solar", title: "Solar Projects", description: "Rooftop & groundmount solar solutions" },
+  { id: "govt", title: "Government Contracts", description: "Tendering & contract execution" },
+  { id: "labour", title: "Labour Supply", description: "Skilled & unskilled manpower" },
+  { id: "consult", title: "Consulting", description: "Project consulting & feasibility" },
+  { id: "transport", title: "Transport", description: "Logistics & transportation" },
+  { id: "real", title: "Real Estate", description: "Sales & property management" }
 ];
 
-function loadSolarBrands() {
-    const grid = document.getElementById("solarBrandGrid");
-    grid.innerHTML = "";
+// Example solar companies list (editable)
+const SOLAR_BRANDS = [
+  { id:'tata', brand:'TATA', kw:3.39, price:181000, img:'assets/images/tata.png'},
+  { id:'waree', brand:'WAREE', kw:3.24, price:166704, img:'assets/images/waree.png'},
+  { id:'adani', brand:'ADANI', kw:3.30, price:170000, img:'assets/images/adani.png'}
+];
 
-    SOLAR_BRANDS.forEach((brand) => {
-        const card = document.createElement("div");
-        card.className = "brand-card";
+// Example real estate properties (editable)
+const PROPERTIES = [
+  { id:'p1', title:'2BHK Ahmedabad', price:3500000, img:'assets/images/prop1.jpg', desc:'2BHK near highway, 1000 sqft' },
+  { id:'p2', title:'Shop at Main Road', price:12000000, img:'assets/images/prop2.jpg', desc:'Commercial shop, heavy footfall' }
+];
 
-        card.innerHTML = `
-            <h3>${brand.name}</h3>
-            <p>${brand.kw}</p>
-            <p>${brand.price}</p>
-        `;
+// ====== App logic ======
+const divisionsGrid = document.getElementById('divisionsGrid');
+const panel = document.getElementById('divisionPanel');
+const panelTitle = document.getElementById('panelTitle');
+const panelContent = document.getElementById('panelContent');
+const backBtn = document.getElementById('backBtn');
+const modal = document.getElementById('modal');
+const modalBody = document.getElementById('modalBody');
+const closeModal = document.getElementById('closeModal');
+const enquiryModal = document.getElementById('enquiryModal');
+const closeEnquiry = document.getElementById('closeEnquiry');
+const enquiryForm = document.getElementById('enquiryForm');
+const whatsappBtn = document.getElementById('whatsappBtn');
 
-        card.addEventListener("click", () => {
-            loadBrandDetail(brand);
-        });
-
-        grid.appendChild(card);
-    });
+function init(){
+  renderDivisions();
+  backBtn.addEventListener('click', ()=>{ panel.classList.add('hidden'); document.querySelector('.home').scrollIntoView(); });
+  closeModal.addEventListener('click', ()=> modal.classList.add('hidden'));
+  closeEnquiry.addEventListener('click', ()=> enquiryModal.classList.add('hidden'));
+  enquiryForm.addEventListener('submit', submitEnquiry);
+  whatsappBtn.href = https://wa.me/919000000000?text=${encodeURIComponent('Hello, I want to enquire about your services')};
+}
+function renderDivisions(){
+  divisionsGrid.innerHTML = '';
+  DIVISIONS.forEach(d=>{
+    const card = document.createElement('div'); card.className='card'; card.dataset.id = d.id;
+    card.innerHTML = <h3>${d.title}</h3><div class="small-desc">${d.description}</div>;
+    card.addEventListener('click', ()=>openDivision(d.id));
+    divisionsGrid.appendChild(card);
+  });
 }
 
-function loadBrandDetail(brand) {
-    const box = document.getElementById("solarBrandDetail");
+function openDivision(id){
+  panel.classList.remove('hidden');
+  const title = DIVISIONS.find(x=>x.id===id).title;
+  panelTitle.textContent = title;
+  panelContent.innerHTML = ''; // clear
 
-    box.innerHTML = `
-        <h2>${brand.name} Details</h2>
-
-        <p>KW: ${brand.kw}</p>
-        <p>Price: ${brand.price}</p>
-
-        <button class="btn whatsapp-btn" onclick="sendSolarWA('${brand.name}', '${brand.price}')">WhatsApp</button>
-        <button class="btn call-btn" onclick="location.href='tel:${SETTINGS.phone}'">Call</button>
-    `;
+  if(id === 'solar'){
+    showSolarPanel();
+  } else if(id === 'real'){
+    showRealPanel();
+  } else {
+    // generic panel
+    panelContent.innerHTML = <div class="panel-box"><p>Details for ${title}. You can edit content in script.js -> DIVISIONS or add custom HTML here.</p></div>;
+  }
 }
 
-/* WhatsApp for solar */
-function sendSolarWA(name, price) {
-    const msg = encodeURIComponent(Hello! I want enquiry for ${name} - ${price});
-    window.open(
-        https://wa.me/${SETTINGS.whatsapp.replace(/[^0-9]/g, "")}?text=${msg},
-        "_blank"
-    );
+function showSolarPanel(){
+  const list = document.createElement('div'); list.className='list';
+  SOLAR_BRANDS.forEach(b=>{
+    const el = document.createElement('div'); el.className='company';
+    el.innerHTML = `<img class="thumb" src="${b.img}" onerror="this.style.display='none'"/>
+      <div class="meta"><h4>${b.brand} — ${b.kw} kW</h4><p>Price: ₹ ${b.price.toLocaleString()}</p></div>
+      <div><button class="btn" onclick="openCompany('${b.id}')">Details</button></div>`;
+    list.appendChild(el);
+  });
+  panelContent.appendChild(list);
+  // admin edit quick button
+  const add = document.createElement('div'); add.style.marginTop='16px';
+  add.innerHTML = <button class="btn" onclick="openAddSolar()">+ Add Brand</button>;
+  panelContent.appendChild(add);
 }
 
-/* Init Home */
-goHome();
+function showRealPanel(){
+  const list = document.createElement('div'); list.className='list';
+  PROPERTIES.forEach(p=>{
+    const el = document.createElement('div'); el.className='company';
+    el.innerHTML = `<img class="thumb" src="${p.img}" onerror="this.style.display='none'"/>
+      <div class="meta"><h4>${p.title}</h4><p>${p.desc}</p><p>Price: ₹ ${p.price.toLocaleString()}</p></div>
+      <div><button class="btn" onclick="openProperty('${p.id}')">View</button></div>`;
+    list.appendChild(el);
+  });
+  panelContent.appendChild(list);
+  const add = document.createElement('div'); add.style.marginTop='16px';
+  add.innerHTML = <button class="btn" onclick="openAddProperty()">+ Add Property</button>;
+  panelContent.appendChild(add);
+}
+
+// Modal openers
+function openCompany(id){
+  const b = SOLAR_BRANDS.find(x=>x.id===id);
+  modalBody.innerHTML = `<img src="${b.img}" onerror="this.style.display='none'"/><h3>${b.brand}</h3>
+    <p>Capacity: ${b.kw} kW</p><p>Price: ₹ ${b.price.toLocaleString()}</p>
+    <div style="margin-top:10px">
+      <button class="btn" onclick="openEnquiry('${b.brand}', ${b.price})">Get Enquiry</button>
+      <a class="btn" href="https://wa.me/919000000000?text=${encodeURIComponent('Enquiry about '+b.brand)}" target="_blank">WhatsApp</a>
+    </div>`;
+  modal.classList.remove('hidden');
+}
+function openProperty(id){
+  const p = PROPERTIES.find(x=>x.id===id);
+  modalBody.innerHTML = `<img src="${p.img}" onerror="this.style.display='none'"/><h3>${p.title}</h3>
+    <p>${p.desc}</p><p>Price: ₹ ${p.price.toLocaleString()}</p>
+    <div style="margin-top:10px">
+      <button class="btn" onclick="openEnquiry('${p.title}', ${p.price})">Get Enquiry</button>
+      <a class="btn" href="https://wa.me/919000000000?text=${encodeURIComponent('Enquiry about property: '+p.title)}" target="_blank">WhatsApp</a>
+    </div>`;
+  modal.classList.remove('hidden');
+}
+
+function openEnquiry(subject, price){
+  enquiryModal.classList.remove('hidden');
+  enquiryForm.dataset.subject = subject;
+  enquiryForm.dataset.price = price;
+  modal.classList.add('hidden');
+}
+
+function submitEnquiry(e){
+  e.preventDefault();
+  const form = new FormData(enquiryForm);
+  const name = form.get('name'); const phone = form.get('phone'); const email = form.get('email'); const msg = form.get('message') || '';
+  const subject = enquiryForm.dataset.subject || 'General Enquiry';
+  // create message and send via mailto fallback
+  const body = Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${msg};
+  const mailto = mailto:info@example.com?subject=${encodeURIComponent('Enquiry: '+subject)}&body=${encodeURIComponent(body)};
+  window.location.href = mailto;
+}
+
+// admin helpers (quick add dialogs - simple prompt)
+function openAddSolar(){
+  const brand = prompt('Brand name'); if(!brand) return;
+  const kw = parseFloat(prompt('kW value (e.g. 3.3)') || '0');
+  const price = parseInt(prompt('Price (number)') || '0',10);
+  const id = brand.toLowerCase().replace(/\s+/g,'_');
+  SOLAR_BRANDS.push({id,brand,kw,price,img:''});
+  showSolarPanel();
+}
+function openAddProperty(){
+  const title = prompt('Property title'); if(!title) return;
+  const desc = prompt('Short description')||'';
+  const price = parseInt(prompt('Price')||'0',10);
+  const id = 'p'+(PROPERTIES.length+1);
+  PROPERTIES.push({id,title,desc,price,img:''});
+  showRealPanel();
+}
+
+// init on load
+window.onload = init;
+
+// expose to global for inline onclick in generated HTML
+window.openCompany = openCompany;
+window.openProperty = openProperty;
+window.openEnquiry = openEnquiry;
+window.openAddSolar = openAddSolar;
+window.openAddProperty = openAddProperty;
