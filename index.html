@@ -108,284 +108,34 @@
           </div>
         </div>
 
+        <!-- TILES: part 2 will add the 5 tiles here -->
         <div class="tiles" id="tiles">
-          <div class="tile" data-key="government">
-            <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1400&auto=format&fit=crop" alt="">
-            <div class="tile-overlay">
-              <h3>Government Contracts</h3>
-              <p>End-to-end tender management</p>
-            </div>
-          </div>
-
-          <div class="tile" data-key="solar">
-            <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1400&auto=format&fit=crop" alt="">
-            <div class="tile-overlay">
-              <h3>Solar Energy</h3>
-              <p>Design, installation & maintenance</p>
-            </div>
-          </div>
-
-          <div class="tile" data-key="labour">
-            <img src="https://images.unsplash.com/photo-1515165562835-cb6c2f0b7a8b?q=80&w=1400&auto=format&fit=crop" alt="">
-            <div class="tile-overlay">
-              <h3>Labour & Workforce</h3>
-              <p>Skilled and unskilled manpower</p>
-            </div>
-          </div>
-
-          <div class="tile" data-key="transport">
-            <img src="https://images.unsplash.com/photo-1517148815978-75f6acaaff0c?q=80&w=1400&auto=format&fit=crop" alt="">
-            <div class="tile-overlay">
-              <h3>Transportation & Logistics</h3>
-              <p>Fleet, tracking & delivery</p>
-            </div>
-          </div>
-
-          <div class="tile" data-key="realestate">
-            <img src="https://images.unsplash.com/photo-1560184897-6f2f6f1e6f07?q=80&w=1400&auto=format&fit=crop" alt="">
-            <div class="tile-overlay">
-              <h3>Real Estate</h3>
-              <p>Buy, sell & manage properties</p>
-            </div>
-          </div>
+          <!-- PART 2: tiles will be pasted here -->
         </div>
       </section>
     </main>
-  </div>
 
-  <div class="panel" id="panel">
-    <div class="panel-card" role="dialog" aria-modal="true">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="logo" style="width:46px;height:46px">JC</div>
-          <div>
-            <div style="font-weight:700">JUST CALL ME SERVICES</div>
-            <div class="small">YOUR PROJECT, OUR COMMITMENT</div>
-          </div>
-        </div>
-        <div>
-          <button id="closePanel" class="btn ghost" aria-label="Close">Close</button>
-        </div>
-      </div>
-
-      <div id="panelBody" style="margin-top:14px"></div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="small">© JUST CALL ME SERVICES — · Phone: +91 90000 00000 · Email: hello@justcallmeservices.com</div>
-  </footer>
-
-  <script>
-    // Data
-    const solarCompanies = [
-      {id:'adani', name:'Adani', sizes:[1,3,5,10,25]},
-      {id:'tata', name:'Tata Power Solar', sizes:[1,2,3,5,10,50]},
-      {id:'waaree', name:'Waaree', sizes:[1,3,5,10,25]},
-      {id:'aps', name:'APS', sizes:[1,3,5,10,25,50,100]},
-    ];
-
-    function panelsEstimate(kw){ return Math.ceil(kw*1000/400); }
-
-    document.getElementById('closePanel').addEventListener('click', ()=> closePanel());
-    document.querySelectorAll('.tile').forEach(t=> t.addEventListener('click', ()=> openPanel(t.dataset.key)));
-
-    function openPanel(key){
-      const panel = document.getElementById('panel');
-      const body = document.getElementById('panelBody');
-      body.innerHTML = '';
-      panel.classList.add('show');
-
-      // short loading animation
-      body.innerHTML = '<div style="display:flex;gap:12px;align-items:center"><div style="width:64px;height:64px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#2563eb);box-shadow:0 8px 30px rgba(30,64,175,0.3);"></div><div><div style="height:12px;width:180px;background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.12));border-radius:6px;animation:placeholder 1.2s linear infinite;"></div><div style="height:10px;width:220px;margin-top:8px;background:rgba(255,255,255,0.04);border-radius:6px"></div></div></div>';
-
-      setTimeout(()=>{
-        if(key === 'solar') renderSolar(body);
-        else if(key === 'government') renderGovernment(body);
-        else if(key === 'labour') renderLabour(body);
-        else if(key === 'transport') renderTransport(body);
-        else if(key === 'realestate') renderRealEstate(body);
-      },450);
-    }
-
-    function closePanel(){ document.getElementById('panel').classList.remove('show'); document.getElementById('panelBody').innerHTML=''; }
-
-    function renderGovernment(container){
-      container.innerHTML = `
-        <div class="panel-top">
-          <div class="hero-img"><img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-          <div class="hero-content">
-            <h1>Tender wins start here</h1>
-            <div class="muted">End-to-end tender management — documentation, compliance and bid submission to increase your win rate.</div>
-            <div class="ctas"><button class="btn" onclick="mailtoContact('Request Proposal','I am interested in Government Contracts')">Request Proposal</button>
-            <button class="btn ghost" onclick="whatsappContact('Interested in Government Contracts')">WhatsApp</button></div>
-          </div>
-        </div>
-        <div class="book">
-          <div class="small">Top features</div>
-          <ul class="small">
-            <li>Tender drafting</li>
-            <li>Compliance & documentation</li>
-            <li>Bid submission & follow-up</li>
-          </ul>
-          <div style="margin-top:10px"><strong class="small">Contact:</strong> +91 90000 00000 · hello@justcallmeservices.com</div>
-        </div>
-      `;
-    }
-
-    function renderSolar(container){
-      container.innerHTML = `
-        <div class="panel-top">
-          <div class="hero-img"><img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-          <div class="hero-content">
-            <h1>Smart Solar Solutions for Every Project</h1>
-            <div class="muted">We design, install and maintain high-efficiency solar systems for commercial, industrial and residential projects.</div>
-            <div class="ctas"><button class="btn" onclick="mailtoContact('Solar Quote','I need a solar quote')">Get Quote</button>
-            <button class="btn ghost" onclick="whatsappContact('I want solar services')">WhatsApp</button></div>
-          </div>
-        </div>
-
-        <div style="margin-top:14px">
-          <div class="small">Choose a company</div>
-          <div class="companies" id="companiesArea"></div>
-          <div id="sizesArea"></div>
-        </div>
-      `;
-
-      const companiesArea = document.getElementById('companiesArea');
-      solarCompanies.forEach(c=>{
-        const el = document.createElement('div');
-        el.className = 'company';
-        el.innerHTML = `<div style="font-weight:700">${c.name}</div><div class="small">${c.description || ''}</div>`;
-        el.addEventListener('click', ()=>{
-          document.querySelectorAll('.company').forEach(x=>x.classList.remove('selected'));
-          el.classList.add('selected');
-          renderSizes(c);
-        });
-        companiesArea.appendChild(el);
-      });
-
-      function renderSizes(company){
-        const sizesArea = document.getElementById('sizesArea');
-        sizesArea.innerHTML = `<div class="small" style="margin-top:12px">Select system size</div><div class="sizes" id="sizesList"></div>`;
-        const sizesList = document.getElementById('sizesList');
-        company.sizes.forEach(s=>{
-          const sEl = document.createElement('div');
-          sEl.className = 'size';
-          sEl.innerHTML = `<div style="font-weight:700">${s} kW</div><div class="small">Approx panels: ${panelsEstimate(s)}</div><div class="small">Price: To be provided</div>`;
-          sEl.addEventListener('click', ()=> {
-            document.querySelectorAll('.size').forEach(x=>x.classList.remove('selected'));
-            sEl.classList.add('selected');
-            showSolarBooking(company, s);
-          });
-          sizesList.appendChild(sEl);
-        });
-      }
-
-      function showSolarBooking(company, size){
-        const sizesArea = document.getElementById('sizesArea');
-        const panels = panelsEstimate(size);
-        const bookingHtml = `
-          <div style="margin-top:12px" class="glass" >
-            <div style="padding:12px">
-              <div style="font-weight:700">${company.name} — ${size} kW</div>
-              <div class="small">Panels approx: ${panels} | Price: To be provided</div>
-              <div class="book">
-                <div class="small">Book / Enquire</div>
-                <div class="field"><input id="bf_name" placeholder="Name"></div>
-                <div class="field"><input id="bf_phone" placeholder="Phone"></div>
-                <div class="field"><input id="bf_email" placeholder="Email (optional)"></div>
-                <div class="field"><textarea id="bf_notes" placeholder="Notes (address / site details)"></textarea></div>
-                <div style="display:flex;gap:8px;flex-wrap:wrap">
-                  <button class="btn" onclick="submitBooking('${company.name}','${size}')">Send Enquiry</button>
-                  <button class="btn ghost" onclick="whatsappContact('Booking request: ${company.name} ${size}kW')">WhatsApp</button>
-                  <button class="btn ghost" onclick="mailtoContact('Solar Booking - ${company.name} ${size}kW','I would like to book ${size} kW')">Open Email</button>
-                </div>
-              </div>
+    <!-- panel (expanded pages) -->
+    <div class="panel" id="panel">
+      <div class="panel-card" role="dialog" aria-modal="true">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="logo" style="width:46px;height:46px">JC</div>
+            <div>
+              <div style="font-weight:700">JUST CALL ME SERVICES</div>
+              <div class="small">YOUR PROJECT, OUR COMMITMENT</div>
             </div>
           </div>
-        `;
-        sizesArea.insertAdjacentHTML('beforeend', bookingHtml);
-      }
-    }
-
-    function renderLabour(container){
-      container.innerHTML = `
-        <div class="panel-top">
-          <div class="hero-img"><img src="https://images.unsplash.com/photo-1515165562835-cb6c2f0b7a8b?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-          <div class="hero-content">
-            <h1>Reliable Workforce. On Time. Every Time.</h1>
-            <div class="muted">We supply trained, verified and efficient manpower for industrial, commercial and on-site projects with full compliance.</div>
-            <div class="ctas"><button class="btn" onclick="mailtoContact('Labour Request','I need manpower')">Hire Manpower</button>
-            <button class="btn ghost" onclick="whatsappContact('I need manpower')">WhatsApp</button></div>
+          <div>
+            <button id="closePanel" class="btn ghost" aria-label="Close">Close</button>
           </div>
         </div>
-        <div class="book">
-          <div class="small">Top features</div>
-          <ul class="small">
-            <li>Skilled & unskilled manpower</li>
-            <li>Payroll & compliance</li>
-            <li>Quick replacement & 24×7 support</li>
-          </ul>
-        </div>
-      `;
-    }
 
-    function renderTransport(container){
-      container.innerHTML = `
-        <div class="panel-top">
-          <div class="hero-img"><img src="https://images.unsplash.com/photo-1517148815978-75f6acaaff0c?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-          <div class="hero-content">
-            <h1>Fast, Safe & Reliable Transportation Services</h1>
-            <div class="muted">On-demand vehicles, fleet management and online tracking for commercial and industrial logistics.</div>
-            <div class="ctas"><button class="btn" onclick="mailtoContact('Transport Quote','I need transport')">Get Quote</button>
-            <button class="btn ghost" onclick="whatsappContact('I need transport services')">WhatsApp</button></div>
-          </div>
-        </div>
-        <div class="book">
-          <div class="small">Top features</div>
-          <ul class="small">
-            <li>Book Vehicle</li>
-            <li>Online Tracking</li>
-            <li>Service & Support</li>
-          </ul>
-        </div>
-      `;
-    }
+        <div id="panelBody" style="margin-top:14px"></div>
+      </div>
+    </div>
 
-    function renderRealEstate(container){
-      container.innerHTML = `
-        <div class="panel-top">
-          <div class="hero-img"><img src="https://images.unsplash.com/photo-1560184897-6f2f6f1e6f07?q=80&w=1200&auto=format&fit=crop" alt=""></div>
-          <div class="hero-content">
-            <h1>Your Property, Managed With Total Transparency</h1>
-            <div class="muted">Buying, selling, renting and property management — verified listings and documentation support.</div>
-            <div class="ctas"><button class="btn" onclick="mailtoContact('Property Enquiry','I am interested in property')">Get Quote</button>
-            <button class="btn ghost" onclick="whatsappContact('I want property assistance')">WhatsApp</button></div>
-          </div>
-        </div>
-        <div style="margin-top:14px">
-          <div class="small">Categories</div>
-          <div class="companies">
-            <div class="company">Residential</div>
-            <div class="company">Commercial</div>
-            <div class="company">Industrial</div>
-            <div class="company">Land / Plot</div>
-            <div class="company">Rental Services</div>
-          </div>
-          <div class="small" style="margin-top:12px">Select a category to see options (images / details can be added later).</div>
-        </div>
-      `;
-    }
-
-    function submitBooking(company, size){
-      const name = document.getElementById('bf_name')?.value || '';
-      const phone = document.getElementById('bf_phone')?.value || '';
-      const email = document.getElementById('bf_email')?.value || '';
-      const notes = document.getElementById('bf_notes')?.value || '';
-      if(!name || !phone){
-        alert('Please enter name and phone number.');
-        return;
-      }
-      const subject = encodeURIComponent(`Booking: ${company} ${size}kW — ${name}`);
-      const body = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nEmail: ${emai
+    <footer>
+      <div class="small">© JUST CALL ME SERVICES — · Phone: +91 90000 00000 · Email: hello@justcallmeservices.com</div>
+    </footer>
+<!-- end of part 1 -->
