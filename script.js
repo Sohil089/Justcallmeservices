@@ -13,11 +13,9 @@ function closeEnquiry() {
 document.querySelectorAll('.select-enquire').forEach(btn => {
   btn.addEventListener('click', openEnquiry);
 });
-
 // Admin Panel CRUD (demo structure)
 let solarProducts = [];
 let realEstates = [];
-
 // Example: Add/Edit/Delete logic can use in-memory objects, connect to backend APIs for real use.
 function addSolarProduct(product) {
   solarProducts.push(product);
