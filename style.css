@@ -1,12 +1,10 @@
 /* style.css */
-
 body {
   background: linear-gradient(135deg, #060315 0%, #131747 100%);
   font-family: 'Segoe UI', Arial, sans-serif;
   color: #e9eefd;
   margin: 0;
 }
-
 .glass-nav {
   backdrop-filter: blur(12px);
   background: rgba(23, 25, 60, 0.3);
