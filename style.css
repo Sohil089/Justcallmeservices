@@ -1,1 +1,114 @@
+/* style.css */
 
+body {
+  background: linear-gradient(135deg, #060315 0%, #131747 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #e9eefd;
+  margin: 0;
+}
+
+.glass-nav {
+  backdrop-filter: blur(12px);
+  background: rgba(23, 25, 60, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(44, 98, 195, 0.13);
+  border-radius: 24px;
+  margin: 16px;
+  padding: 18px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo { font-size: 2rem; font-weight: bold; color: #39aaff; text-shadow: 0 0 6px #0ff; }
+.glass-nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; }
+.glass-nav a { text-decoration: none; color: #a6eaff; font-weight: 600; transition: color 0.2s; }
+.glass-nav a:hover { color: #fff; text-shadow: 0 0 8px #2ff6fa; }
+
+.glass-card-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 24px; }
+.glass-card {
+  background: rgba(40, 53, 77, 0.35);
+  box-shadow: 0 4px 32px #0ff3 0 0 48px #39aaff66;
+  border-radius: 24px;
+  padding: 32px;
+  min-width: 210px; flex: 1 1 240px;
+  backdrop-filter: blur(32px) brightness(110%);
+  position: relative;
+  border: 1.5px solid #39aaff77;
+  margin: 12px; 
+  transition: box-shadow 0.4s, transform 0.25s;
+}
+.glass-card.neon { box-shadow: 0 0 24px 6px #2ff6fa99, 0 0 4px #39aaff66 inset; }
+.glass-card:hover { transform: scale(1.04); box-shadow: 0 0 64px #2ff6fa; }
+
+.neon-glow {
+  color: #2ff6fa;
+  font-size: 3rem;
+  text-shadow: 0 0 24px #13e8e6, 0 0 8px #39aaff;
+}
+
+.glass-btn {
+  background: rgba(45, 106, 205, 0.2);
+  border: none; border-radius: 12px;
+  color: #2ff6fa;
+  font-weight: 700;
+  padding: 10px 28px;
+  box-shadow: 0 0 14px #2ff6fa44;
+  transition: background 0.2s, box-shadow 0.3s;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.glass-btn.neon:hover {
+  background: rgba(45, 106, 205, 0.36);
+  box-shadow: 0 0 30px #2ff6fa, 0 0 6px #39aaff;
+  color: #fff;
+}
+
+/* Popup (Enquiry) */
+.glass-popup {
+  background: rgba(23, 25, 60, 0.38);
+  backdrop-filter: blur(24px) brightness(120%);
+  box-shadow: 0 0 48px #2ff6fa99;
+  border-radius: 32px;
+  position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
+  z-index: 800;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.28s;
+  opacity: 1;
+}
+
+.hidden { display: none !important; opacity: 0 !important; }
+.popup-content {
+  padding: 32px 40px; background: rgba(40,53,77,0.13);
+  border-radius: 28px; box-shadow: 0 0 24px #39aaff99;
+  min-width: 300px;
+  position: relative;
+}
+.popup-content .close {
+  position: absolute; top: 12px; right: 14px; font-size: 2.2rem; color: #2ff6fa; cursor: pointer; background: none; border: none;
+}
+
+/* Form inputs in popup */
+.popup-content input, .popup-content textarea {
+  width: 100%; margin: 12px 0; padding: 10px 16px; border-radius: 10px; border: none;
+  background: rgba(68, 92, 136, 0.19);
+  color: #e9eefd; font-size: 1rem;
+}
+
+/* Responsive settings */
+@media (max-width: 900px) {
+  .glass-card-grid { flex-direction: column; gap: 18px; }
+  .glass-card { min-width: 90vw; }
+  main { padding: 10vw 3vw; }
+}
+
+@media (max-width: 600px) {
+  .glass-nav { flex-direction: column; padding: 12px 9px; }
+  .glass-nav ul { gap: 12px; }
+  .logo { font-size: 1.2rem; }
+  .neon-glow { font-size: 2rem; }
+  .popup-content { min-width: 80vw; }
+}
