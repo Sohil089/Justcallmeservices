@@ -167,3 +167,61 @@ window.openProperty = openProperty;
 window.openEnquiry = openEnquiry;
 window.openAddSolar = openAddSolar;
 window.openAddProperty = openAddProperty;
+// ------------------ FIXED ENQUIRY FORM CODE --------------------
+
+document.addEventListener("DOMContentLoaded", function () {
+    
+    const enquiryModal = document.getElementById("enquiryModal");
+    const closeEnquiry = document.getElementById("closeEnquiry");
+    const enquiryForm = document.getElementById("enquiryForm");
+
+    // Open Enquiry Modal (Global Function)
+    window.openEnquiryForm = function (serviceName) {
+        document.getElementById("enquiryTitle").innerText = Get Enquiry - ${serviceName};
+        enquiryModal.style.display = "flex";
+    };
+
+    // Close Modal
+    closeEnquiry.addEventListener("click", () => {
+        enquiryModal.style.display = "none";
+    });
+
+    // Background Click to Close
+    enquiryModal.addEventListener("click", (e) => {
+        if (e.target === enquiryModal) {
+            enquiryModal.style.display = "none";
+        }
+    });
+
+    // Submit Form
+    enquiryForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let name = document.getElementById("enqName").value;
+        let phone = document.getElementById("enqPhone").value;
+        let email = document.getElementById("enqEmail").value;
+        let message = document.getElementById("enqMessage").value;
+
+        if (!name || !phone || !email || !message) {
+            alert("Please fill all fields.");
+            return;
+        }
+
+        // WhatsApp Message Format
+        let whatsappText = `New Enquiry:
+Name: ${name}
+Phone: ${phone}
+Email: ${email}
+Message: ${message}`;
+
+        let whatsappURL = https://wa.me/YOUR_NUMBER?text=${encodeURIComponent(whatsappText)};
+
+        window.open(whatsappURL, "_blank");
+
+        // Close Form After Submit
+        enquiryModal.style.display = "none";
+
+        enquiryForm.reset();
+    });
+
+});
