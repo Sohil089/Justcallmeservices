@@ -404,7 +404,68 @@ function init() {
     if (page) page.style.display = 'none';
   });
 }
+// ----- ENQUIRY MODAL CLOSE FIX -----
+// Paste this at the END of your script.js file
 
+(function(){
+  // try common modal ids
+  const modal = document.getElementById('enquiryModal')
+             || document.getElementById('modalEnquiry')
+             || document.getElementById('modal')
+             || document.querySelector('.modal')
+             || null;
+
+  if(!modal) {
+    console.warn('Enquiry modal not found (expected #enquiryModal or #modalEnquiry or .modal).');
+    return;
+  }
+
+  // find common close buttons inside modal (class or id)
+  const closeSelectors = [
+    '.modalClose', '.closeBtn', '#closeEnquiry', '.close-enquiry', '.btn-close'
+  ];
+  const closers = Array.from(modal.querySelectorAll(closeSelectors.join(',')));
+
+  // add click handlers to all found close elements
+  closers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.style.display = 'none';
+    });
+  });
+
+  // close when clicking on overlay (outside inner box)
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // close on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      if (modal.style.display === 'block' || modal.style.display === 'flex') {
+        modal.style.display = 'none';
+      }
+    }
+  });
+
+  // If form inside modal submits, auto-close after a short delay
+  const form = modal.querySelector('form#enquiryForm') || modal.querySelector('form');
+  if (form) {
+    form.addEventListener('submit', (ev) => {
+      // do not stop existing submit handlers — just close after small delay
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 350);
+    });
+  }
+
+  // safety: expose a global close function in case HTML calls it
+  window.closeEnquiryModal = function(){
+    if(modal) modal.style.display = 'none';
+  };
+})();
 /* Wait for DOM ready */
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
