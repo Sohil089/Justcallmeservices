@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Just Call Me Services</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="glass-nav">
+    <span class="logo">Just Call Me Services</span>
+    <ul>
+      <li><a href="index.html">Divisions</a></li>
+      <li><a href="solar.html">Solar Projects</a></li>
+      <li><a href="realestate.html">Real Estate</a></li>
+      <li><a href="admin.html">Admin Panel</a></li>
+    </ul>
+  </nav>
 
+  <!-- Example Home Content -->
+  <main>
+    <h1 class="neon-glow">Divisions</h1>
+    <div class="glass-card-grid">
+      <!-- Division Cards -->
+      <div class="glass-card neon">
+        <h2>Solar Projects</h2>
+        <button onclick="location.href='solar.html'" class="glass-btn neon">Explore</button>
+      </div>
+      <div class="glass-card neon">
+        <h2>Real Estate</h2>
+        <button onclick="location.href='realestate.html'" class="glass-btn neon">Explore</button>
+      </div>
+      <!-- ...more cards as needed... -->
+    </div>
+  </main>
+
+  <!-- Enquiry Modal Popup -->
+  <div id="enquiryModal" class="glass-popup hidden">
+    <div class="popup-content">
+      <span class="close" onclick="closeEnquiry()">&times;</span>
+      <h3>Enquiry</h3>
+      <form>
+        <input type="text" placeholder="Your Name" required/>
+        <input type="email" placeholder="Your Email" required/>
+        <textarea placeholder="Your Query"></textarea>
+        <button type="submit" class="glass-btn neon">Send</button>
+      </form>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
