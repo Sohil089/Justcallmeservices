@@ -172,5 +172,137 @@
 
     <footer>
       <div class="small">© JUST CALL ME SERVICES — · Phone: +91 90000 00000 · Email: hello@justcallmeservices.com</div>
-    </footer>
+    </footer><!-- PART 3 : PANEL RENDER FUNCTIONS (HTML INSIDE JS) -->
+<script>
+
+function renderGovernment(container){
+  container.innerHTML = `
+    <div class="panel-top">
+      <div class="hero-img"><img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1400&auto=format&fit=crop"></div>
+      <div class="hero-content">
+        <h1>Government Contract Services</h1>
+        <div class="muted">Tender filing, document preparation, vendor registration, e-auction support & project monitoring.</div>
+        <div class="ctas">
+          <button class="btn" onclick="mailtoContact('Gov Contract Inquiry')">Get Quote</button>
+          <button class="btn ghost" onclick="whatsappContact('Government Contract Inquiry')">WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book" style="margin-top:18px">
+      <div class="small">Top Features</div>
+      <ul class="small">
+        <li>Full tender documentation</li>
+        <li>Vendor registration support</li>
+        <li>E-auction & GEM portal handling</li>
+        <li>On-site inspection support</li>
+      </ul>
+    </div>
+  `;
+}
+
+function renderSolar(container){
+  container.innerHTML = `
+    <div class="panel-top">
+      <div class="hero-img"><img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1400&auto=format&fit=crop"></div>
+      <div class="hero-content">
+        <h1>Solar Energy Solutions</h1>
+        <div class="muted">Rooftop – Industrial – Commercial – Ground Mounted Systems</div>
+        <div class="ctas">
+          <button class="btn" onclick="mailtoContact('Solar Inquiry')">Get Quote</button>
+          <button class="btn ghost" onclick="whatsappContact('Solar Inquiry')">WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="small" style="margin-top:18px">Select a Company</div>
+    <div class="companies">
+      <div class="company" onclick="selectCompany(this,'Adani')">Adani</div>
+      <div class="company" onclick="selectCompany(this,'Tata')">Tata</div>
+      <div class="company" onclick="selectCompany(this,'Waaree')">Waaree</div>
+      <div class="company" onclick="selectCompany(this,'APS')">APS</div>
+    </div>
+
+    <div id="solarSizes"></div>
+  `;
+}
+
+function renderLabour(container){
+  container.innerHTML = `
+    <div class="panel-top">
+      <div class="hero-img"><img src="https://images.unsplash.com/photo-1515165562835-cb6c2f0b7a8b?q=80&w=1400&auto=format&fit=crop"></div>
+      <div class="hero-content">
+        <h1>Reliable Workforce. On Time. Every Time.</h1>
+        <div class="muted">Skilled, semi-skilled, unskilled manpower — Verified & on-demand supply.</div>
+        <div class="ctas">
+          <button class="btn" onclick="mailtoContact('Labour Request')">Send Request</button>
+          <button class="btn ghost" onclick="whatsappContact('Need manpower')">WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book">
+      <div class="small">Top Features</div>
+      <ul class="small">
+        <li>Skilled & unskilled manpower</li>
+        <li>Payroll & compliance</li>
+        <li>Quick replacement & 24×7 support</li>
+      </ul>
+    </div>
+  `;
+}
+
+function renderTransport(container){
+  container.innerHTML = `
+    <div class="panel-top">
+      <div class="hero-img"><img src="https://images.unsplash.com/photo-1517148815978-75f6acaaff0c?q=80&w=1400&auto=format&fit=crop"></div>
+      <div class="hero-content">
+        <h1>Fast, Reliable Transportation</h1>
+        <div class="muted">Fleet on-demand · Online tracking · Bulk logistics</div>
+        <div class="ctas">
+          <button class="btn" onclick="mailtoContact('Transport Quote')">Get Quote</button>
+          <button class="btn ghost" onclick="whatsappContact('Need transport services')">WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book">
+      <div class="small">Top Features</div>
+      <ul class="small">
+        <li>Book Vehicle</li>
+        <li>Online Tracking</li>
+        <li>Service & Support</li>
+      </ul>
+    </div>
+  `;
+}
+
+function renderRealEstate(container){
+  container.innerHTML = `
+    <div class="panel-top">
+      <div class="hero-img"><img src="https://images.unsplash.com/photo-1560184897-6f2f6f1e6f07?q=80&w=1400&auto=format&fit=crop"></div>
+      <div class="hero-content">
+        <h1>Your Property, Managed With Total Transparency</h1>
+        <div class="muted">Buying · Renting · Selling · Industrial · Residential · Plots</div>
+        <div class="ctas">
+          <button class="btn" onclick="mailtoContact('Property Enquiry')">Enquire</button>
+          <button class="btn ghost" onclick="whatsappContact('Property assistance')">WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="book">
+      <div class="small">Categories</div>
+      <ul class="small">
+        <li>Residential</li>
+        <li>Commercial</li>
+        <li>Industrial</li>
+        <li>Land / Plot</li>
+        <li>Rental Services</li>
+      </ul>
+    </div>
+  `;
+}
+
+</script>
 <!-- end of part 1 -->
